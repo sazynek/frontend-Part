@@ -1,17 +1,13 @@
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
+import { Montserrat } from 'next/font/google'
 import './globals.scss'
-
-const geistSans = localFont({
-	src: './fonts/GeistVF.woff',
-	variable: '--font-geist-sans',
-	weight: '100 900',
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const geistMono = localFont({
-	src: './fonts/GeistMonoVF.woff',
-	variable: '--font-geist-mono',
-	weight: '100 900',
+import { ReactNode } from 'react'
+import { Providers } from '../providers/Providers'
+// import '../../node_modules'
+const montserrat = Montserrat({
+	subsets: ['latin'],
+	weight: ['400', '500', '700', '900'],
+	preload: true,
 })
 
 export const metadata: Metadata = {
@@ -22,12 +18,12 @@ export const metadata: Metadata = {
 export default function RootLayout({
 	children,
 }: Readonly<{
-	children: React.ReactNode
+	children: ReactNode
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${geistSans.variable}  antialiased`}>
-				{children}
+			<body className={`${montserrat.className} font-normal text-base`}>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	)

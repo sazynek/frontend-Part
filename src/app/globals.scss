@@ -1,24 +1,21 @@
-@tailwind base;
+@layer tailwind-base, antd;
+
+@layer tailwind-base {
+	@tailwind base;
+}
 @tailwind components;
 @tailwind utilities;
-@tailwind variants;
+
 
 html {
 	scroll-behavior: smooth;
+	background-color: var(--background);
 }
 :root {
-	--background: #ffffff;
+	--background: #f9f9f9;
 	--foreground: #171717;
 }
 
-// @media (prefers-color-scheme: dark) {
-// 	:root {
-// 		--background: #0a0a0a;
-// 		--foreground: #ededed;
-// 	}
-// }
-
 body {
-
-	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16;
 }

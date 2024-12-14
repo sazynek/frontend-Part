@@ -1,11 +1,9 @@
-// import { Homes } from '../pages/Homes'
+import { Home } from '../pages/Home'
 
-import { Homes } from "../pages/Homes";
-
-export default function Home() {
+export default function HomePage() {
 	return (
 		<div className=''>
-			<Homes />
+			<Home />
 		</div>
 	)
 }

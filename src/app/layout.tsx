@@ -4,7 +4,7 @@ import './globals.scss'
 import { ReactNode } from 'react'
 import { Providers } from '../providers/Providers'
 import { Header } from '../shared/Header'
-import { Footer } from '../shared/Footer'
+// import { Footer } from '../shared/Footer'
 const montserrat = Montserrat({
 	subsets: ['latin'],
 	weight: ['400', '500', '700', '900'],
@@ -28,7 +28,7 @@ export default function RootLayout({
 				<Providers>
 					<Header />
 					{children}
-					<Footer />
+					{/* <Footer /> */}
 				</Providers>
 			</body>
 		</html>

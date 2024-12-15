@@ -1,9 +1,10 @@
-import { Button, Flex } from 'antd'
+import { Flex } from 'antd'
 import Image from 'next/image'
 import { FC } from 'react'
 import { Container } from '../components/Container'
 import '../app/support.scss'
 import Link from 'next/link'
+import { DoubleBtn } from '../components/DoubleBtn'
 export const FooterHeaderLinks = [
 	{ title: 'Menu', link: 'menu' },
 	{ title: 'Blog', link: 'blog' },
@@ -11,7 +12,7 @@ export const FooterHeaderLinks = [
 ]
 export const Header: FC = () => {
 	return (
-		<header className='p-5 pt-10'>
+		<header className='p-5 pt-10 mb-24'>
 			<Container>
 				<nav>
 					<Flex
@@ -54,19 +55,10 @@ export const Header: FC = () => {
 								))}
 							</Flex>
 						</Flex>
-						<Flex
-							className='self-center'
-							component={'ul'}
-							justify='space-between'
-							gap={20}
-						>
-							<li>
-								<Button type='default' className='p-5 border-primary hover:border-opacity-80' >Login</Button>
-							</li>
-							<li>
-								<Button type='primary' className='bg-primary hover:bg-opacity-80 rounded-xl p-5'>Sign up</Button>
-							</li>
-						</Flex>
+						<DoubleBtn
+							firstBtn='Login'
+							secondBtn='Sign up'
+						/>
 					</Flex>
 				</nav>
 			</Container>

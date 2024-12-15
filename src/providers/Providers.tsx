@@ -132,7 +132,7 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 			<ConfigProvider
 				warning={{ strict: true }}
 				button={{ autoInsertSpace: true }}
-				typography={{ className: 'text-base ' }}
+				typography={{ className: 'text-base ', }}
 				wave={{ showEffect: showShakeEffect }}
 			>
 				<QueryClientProvider client={query}>

@@ -8,7 +8,12 @@ export default {
 		'./src/**/*.{js,ts,jsx,tsx,mdx}',
 	],
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				
+				primary: '#6C5FBC',
+			},
+		},
 	},
 	plugins: [],
 } satisfies Config

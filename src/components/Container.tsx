@@ -1,5 +1,8 @@
 import { FC, PropsWithChildren } from 'react'
-
-export const Container: FC<PropsWithChildren> = ({ children }) => {
-	return <div className='max-w-[1300px] mx-auto'>{children}</div>
+interface IContainer extends PropsWithChildren{
+	className:string
 }
+export const Container: FC<IContainer> = ({ children,className }) => {
+	return <div className={`max-w-[1300px] mx-auto ${className} `}>{children}</div>
+}
+

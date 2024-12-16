@@ -4,7 +4,7 @@ export const Enjoyrright = () => {
 	return (
 		<div className='relative'>
 			<Image
-				className='absolute right-14 -top-20 '
+				className='w-auto h-auto absolute right-14 -top-20 '
 				src={'/tree-wave.svg'}
 				alt='graf'
 				width={38}
@@ -12,20 +12,25 @@ export const Enjoyrright = () => {
 				height={33}
 			/>
 			<Image
-				className='absolute right-16 -top-14 '
+				priority
+				className='h-auto w-auto absolute right-16 -top-14 '
 				src={'/firstpng.png'}
 				alt='food'
+				sizes='100vh'
 				width={320}
 				height={85}
 			/>
 			<Image
+				priority
+				className='w-auto h-auto '
 				src={'/main_food.png'}
 				alt='food'
+				sizes='100vh'
 				width={450}
 				height={470}
 			/>
 			<Image
-				className='absolute -left-16 -bottom-9 '
+				className='w-auto h-auto absolute -left-16 -bottom-9 '
 				src={'/main_graf.png'}
 				alt='graf'
 				width={200}
@@ -33,7 +38,7 @@ export const Enjoyrright = () => {
 				height={205}
 			/>
 			<Image
-				className='absolute -left-16 -bottom-9 '
+				className='w-auto h-auto absolute -left-16 -bottom-9 '
 				src={'/tree-line.svg'}
 				alt='graf'
 				width={38}

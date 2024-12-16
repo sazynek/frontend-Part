@@ -31,7 +31,8 @@ export const Enjoyleft = () => {
 				</div>
 				<Flex justify='space-between'>
 					<Image
-						className='self-center'
+						priority
+						className='self-center w-auto h-auto '
 						src={'trustpilot.svg'}
 						alt='trustpilot'
 						width={123}

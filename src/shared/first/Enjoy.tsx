@@ -5,12 +5,15 @@ import { Container } from '../../components/Container'
 
 export const Enjoy = () => {
 	return (
-		<Container>
+		<Container className='mb-24'>
 			<Row align={'middle'}>
 				<Col span={12}>
 					<Enjoyleft />
 				</Col>
-				<Col span={10} offset={2} >
+				<Col
+					span={10}
+					offset={2}
+				>
 					<Enjoyrright />
 				</Col>
 			</Row>

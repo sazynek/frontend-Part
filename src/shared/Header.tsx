@@ -12,8 +12,8 @@ export const FooterHeaderLinks = [
 ]
 export const Header: FC = () => {
 	return (
-		<header className='p-5 pt-10 mb-24'>
-			<Container>
+		<header className='p-5 pt-10 mb-24 '>
+			<Container className=''>
 				<nav>
 					<Flex
 						className='downLine'
@@ -26,9 +26,9 @@ export const Header: FC = () => {
 							justify='space-between'
 						>
 							<Link href={'/'}>
-								<li>
+								<li >
 									<Image
-										className='self-center'
+										className='self-center w-auto h-auto'
 										src={'/Logo.png'}
 										alt='logo'
 										width={100}

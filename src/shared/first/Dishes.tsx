@@ -1,37 +1,80 @@
 'use client'
-import { Row } from 'antd'
 import { BigTitle } from '../../components/BigTitle'
 import { Container } from '../../components/Container'
-// import { MyCard } from '../../components/MyCard'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { instance } from '../../api/Instance'
-import { useEffect, useState } from 'react'
+import { MyCard } from '../../components/MyCard'
+import axios from 'axios'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { query } from '../../providers/Providers'
+import { IResponse } from '../../types/types'
 
 export const Dishes = () => {
-	const [a, setA] = useState<boolean>(false)
-	const server = async () => {
-		const a = await fetch('http://localhost:3100/products')
-		console.log(a)
+	const { data: products } = useQuery<IResponse[]>({
+		queryKey: ['products'],
+		queryFn: async () =>
+			(await axios.get('http://localhost:3100/products')).data,
+	})
+
+	const { mutate } = useMutation({
+		mutationKey: ['mutate_status-prod'],
+		mutationFn: (index?: string | undefined) => {
+			// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+			const { statusProductId, statusProduct } = products?.find(
+				item => item.id === index,
+			)!
+			console.log(statusProductId, 'a is ')
+			return axios.put(
+				`http://localhost:3100/status-product/${statusProductId}`,
+				{
+					userLike: !statusProduct?.userLike,
+				},
+			)
+		},
+		onSuccess: ({ data }) => {
+			console.log('is success', data, 'new data')
+			query.invalidateQueries()
+		},
+	})
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const userLikeThis = (index?: string | undefined) => {
+		mutate(index)
 	}
-	useEffect(() => {
-		server()
-	}, [a])
 	return (
 		<Container className='mb-24'>
 			<div className='text-center  mx-auto'>
 				<BigTitle
 					size={45}
-					title='Our Top Restaurants'
-					wordSelect='Restaurants'
+					title='Our Top Dishes'
+					wordSelect='Dishes'
 					center='center'
 				/>
 			</div>
-			<Row>
-				{/* <MyCard />
-				<MyCard />
-				<MyCard /> */}
-			</Row>
-			<div onClick={() => setA(!a)}>click</div>
+			<div className='grid grid-cols-5 gap-5'>
+				{products
+					?.map((item,index) => {
+						return (
+							index>4 &&
+							<div
+								className=''
+								key={item.id}
+							>
+								<MyCard
+									onClick={userLikeThis}
+									cost={item.praise.cost}
+									famous={item.statusProduct.famous}
+									id={item.id}
+									imgUrl={item.imgUrl}
+									rating={item.statusProduct.rating}
+									time={item.time}
+									title={item.title}
+									alt='card'
+									userLike={item.statusProduct.userLike}
+								/>
+							</div>
+						)
+					})
+					}
+			</div>
 		</Container>
 	)
 }

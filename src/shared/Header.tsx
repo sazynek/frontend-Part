@@ -56,6 +56,7 @@ export const Header: FC = () => {
 							</Flex>
 						</Flex>
 						<DoubleBtn
+							LogReg={true}
 							firstBtn='Login'
 							secondBtn='Sign up'
 						/>

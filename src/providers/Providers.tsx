@@ -120,7 +120,7 @@ const showShakeEffect: WaveConfig['showEffect'] = (node, { component }) => {
 
 	loop()
 }
-const query = new QueryClient()
+export const query = new QueryClient()
 
 export const Providers: FC<PropsWithChildren> = ({ children }) => {
 	return (

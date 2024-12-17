@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
 			{
 				source: '/:path*',
 				destination: 'http://localhost:3100/:path*',
+				basePath: false,
 			},
 		]
 	},

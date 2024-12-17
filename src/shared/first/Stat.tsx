@@ -15,7 +15,7 @@ const statData: IStatTItle[] = [
 ]
 export const Stat = () => {
 	return (
-		<div 
+		<div
 			className='h-full w-full p-10 mb-24'
 			style={{
 				backgroundImage: 'url("/BG-ping.png")',
@@ -30,15 +30,16 @@ export const Stat = () => {
 					align='middle'
 				>
 					{statData.map(item => (
-						<>
-							<Col span={8}>
-								<StatTItle
-									key={item.paragraph}
-									paragraph={item.paragraph}
-									title={item.title}
-								/>
-							</Col>
-						</>
+						<Col
+							key={item.title}
+							span={8}
+						>
+							<StatTItle
+								key={item.paragraph}
+								paragraph={item.paragraph}
+								title={item.title}
+							/>
+						</Col>
 					))}
 				</Row>
 			</Container>

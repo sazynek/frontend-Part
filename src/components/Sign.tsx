@@ -8,7 +8,7 @@ import Paragraph from 'antd/es/typography/Paragraph'
 import Link from 'next/link'
 import './componentStyle/componentStyle.scss'
 import Password from 'antd/es/input/Password'
-
+import { motion, AnimatePresence } from 'framer-motion'
 export const Sign: FC<ISign> = ({
 	className,
 	btnTitle,
@@ -45,13 +45,19 @@ export const Sign: FC<ISign> = ({
 							<Input
 								placeholder={name}
 								name={name}
-								className='
+								className={clsx(
+									`
 						border-solid 
 						border-primary 
 						border-opacity-50 
 						border-2 
 						p-3 
-						rounded-xl'
+						rounded-xl
+						`,
+									{
+										'mb-6': !rest?.errors?.username,
+									},
+								)}
 								ref={ref}
 								onChange={onChange}
 								value={value}
@@ -59,12 +65,19 @@ export const Sign: FC<ISign> = ({
 							/>
 						)}
 					/>
-
-					<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6 transition-all duration-150 '>
-						{rest?.errors?.username
-							? rest?.errors?.username?.message
-							: ''}
-					</Paragraph>
+					<AnimatePresence initial={true}>
+						{rest?.errors?.username && (
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								key={'error-username'}
+								className='text-red-700 text-lg  font-thin italic my-2 '
+							>
+								{rest?.errors?.username?.message}
+							</motion.div>
+						)}
+					</AnimatePresence>
 				</>
 			)}
 			<Controller
@@ -78,13 +91,19 @@ export const Sign: FC<ISign> = ({
 				render={({ field: { ref, value, name, onBlur, onChange } }) => (
 					<Input
 						placeholder={name}
-						className='
+						className={clsx(
+							`
 						border-solid 
 						border-primary 
-						border-opacity-50
+						border-opacity-50 
 						border-2 
-						p-3  
-						rounded-xl'
+						p-3 
+						rounded-xl
+						`,
+							{
+								'mb-6': !rest?.errors?.email,
+							},
+						)}
 						name={name}
 						ref={ref}
 						onChange={onChange}
@@ -93,9 +112,19 @@ export const Sign: FC<ISign> = ({
 					/>
 				)}
 			/>
-			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6 transition-all duration-150 '>
-				{rest?.errors?.email ? rest?.errors?.email?.message : ''}
-			</Paragraph>
+			<AnimatePresence initial={true}>
+				{rest?.errors?.email && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						key={'error-email'}
+						className='text-red-700 text-lg  font-thin italic my-2 '
+					>
+						{rest?.errors?.email?.message}
+					</motion.div>
+				)}
+			</AnimatePresence>
 			<Controller
 				name='password'
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -108,14 +137,19 @@ export const Sign: FC<ISign> = ({
 					<Password
 						placeholder={name}
 						name={name}
-						className='
-						border-solid 
-						border-primary 
-						border-opacity-50 
-						border-2 
-						p-3 
-						rounded-xl
-						input-mask'
+						className={clsx(
+							`
+				border-solid 
+				border-primary 
+				border-opacity-50 
+				border-2 
+				p-3 
+				rounded-xl
+				`,
+							{
+								'mb-6': !rest?.errors?.password,
+							},
+						)}
 						ref={ref}
 						onChange={onChange}
 						value={value}
@@ -123,9 +157,19 @@ export const Sign: FC<ISign> = ({
 					/>
 				)}
 			/>
-			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6 z-10 transition-all duration-150 '>
-				{rest?.errors?.password ? rest?.errors?.password?.message : ''}
-			</Paragraph>
+			<AnimatePresence initial={true}>
+				{rest?.errors?.password && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						key={'error-password'}
+						className='text-red-700 text-lg  font-thin italic my-2 '
+					>
+						{rest?.errors?.password?.message}
+					</motion.div>
+				)}
+			</AnimatePresence>
 			<Button
 				htmlType='submit'
 				variant='filled'

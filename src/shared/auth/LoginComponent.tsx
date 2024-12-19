@@ -24,7 +24,6 @@ export const LoginComponent: FC<LoginProps> = ({
 					reset={rest?.reset}
 					errors={rest?.errors}
 					LogOrSignup={LogOrSignup}
-					className=''
 					btnTitle={btnTitle}
 				/>
 			</div>

@@ -1,0 +1,6 @@
+.swiper-pagination-bullet {
+	@apply bg-white rounded-lg transition-all duration-200;
+    &-active{
+        @apply bg-white w-8 h-1.5 rounded-lg;
+	}
+}

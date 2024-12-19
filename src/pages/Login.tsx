@@ -3,31 +3,36 @@ import { FC } from 'react'
 import { Col, Flex, Row } from 'antd'
 import { LoginComponent } from '../shared/auth/LoginComponent'
 import { useForm } from 'react-hook-form'
-import { RightImage } from '../components/RightImage'
+import { RightSwipeComponent } from '../components/RightSwipeComponent'
+import { ILogin } from '../types/types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { schemaFunc } from '../components/schema/zodSchema'
 
-export const Login: FC = () => {
+export const Login: FC<ILogin> = ({ LogOrSignup, btnTitle, title }) => {
 	const {
 		control,
 		reset,
 		formState: { errors },
 		clearErrors,
 	} = useForm({
+		resolver: zodResolver(schemaFunc(LogOrSignup==='login' ? 1 : 0)),
 		mode: 'onChange',
 		defaultValues: {
 			username: '',
 			email: '',
-			passport: '',
+			password: '',
 		},
 	})
+
 	return (
-		<main onClick={()=>clearErrors()}>
+		<main onClick={() => clearErrors()}>
 			<Row gutter={0}>
 				<Col span={14}>
 					<Flex className='bg-white h-screen justify-center align-middle'>
 						<LoginComponent
-							LogOrSignup='login'
-							btnTitle='sign in'
-							title='Sign Up to eatly'
+							LogOrSignup={LogOrSignup}
+							btnTitle={btnTitle}
+							title={title}
 							className='self-center'
 							control={control}
 							reset={reset}
@@ -37,10 +42,10 @@ export const Login: FC = () => {
 				</Col>
 				<Col span={10}>
 					<Flex
-						className='bg-red-500 h-screen justify-center align-middle'
+						className='bg-red-500 h-screen justify-center align-middle '
 						style={{ background: 'url("login_bg.png")' }}
 					>
-						<RightImage className='self-center'/>
+						<RightSwipeComponent className='self-center justify-self-center' />
 					</Flex>
 				</Col>
 			</Row>

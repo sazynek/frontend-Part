@@ -1,10 +1,14 @@
 import Image from 'next/image'
 import './../app/support.scss'
-export const Enjoyrright = () => {
+import { FC } from 'react'
+import { IClassname } from '../types/types'
+export const Enjoyrright: FC<IClassname> = ({
+	className = 'right-14 -top-20',
+}) => {
 	return (
 		<div className='relative'>
 			<Image
-				className='w-auto h-auto absolute right-14 -top-20 '
+				className={`w-auto h-auto absolute  ${className}`}
 				src={'/tree-wave.svg'}
 				alt='graf'
 				width={38}

@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-export interface IBigTitle {
+export interface IBigTitle extends IClassname {
 	title: string
 	wordSelect: string
 	size: number
@@ -81,7 +81,7 @@ export interface IClassname {
 export interface LoginProps extends IClassname, IRest {
 	title: string
 	btnTitle: string
-	LogOrSignup: 'login' | 'sing up'
+	LogOrSignup: 'login' | 'sign up'
 }
 
 export interface ISign extends Omit<LoginProps, 'title'> {
@@ -91,4 +91,12 @@ export interface IRest {
 	control: unknown
 	reset: unknown
 	errors: unknown
+}
+export interface IRightImage extends IClassname {
+	title: string
+	subtitle: string
+}
+export interface ILogin extends Pick<LoginProps, 'LogOrSignup'> {
+	btnTitle: 'sign in' | 'sign up'
+	title: 'Sign in to eatly' | 'Sign Up to eatly'
 }

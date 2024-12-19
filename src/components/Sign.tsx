@@ -6,6 +6,8 @@ import { FC } from 'react'
 import clsx from 'clsx'
 import Paragraph from 'antd/es/typography/Paragraph'
 import Link from 'next/link'
+import './componentStyle/componentStyle.scss'
+import Password from 'antd/es/input/Password'
 
 export const Sign: FC<ISign> = ({
 	className,
@@ -27,48 +29,51 @@ export const Sign: FC<ISign> = ({
 			control={rest.control}
 			onSubmit={handleForm}
 		>
-			<Controller
-				name={'username'}
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				//@ts-ignore
-				control={rest.control}
-				rules={{
-					required: {
-						value: true,
-						message: 'hayque poner un email',
-					},
-				}}
-				render={({ field: { ref, value, name, onBlur, onChange } }) => (
-					<Input
-						placeholder={name}
-						name={name}
-						className='
+			{btnTitle === 'sign up' && (
+				<>
+					<Controller
+						name={'username'}
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						//@ts-ignore
+						control={rest.control}
+						rules={{
+							required: true,
+						}}
+						render={({
+							field: { ref, value, name, onBlur, onChange },
+						}) => (
+							<Input
+								placeholder={name}
+								name={name}
+								className='
 						border-solid 
 						border-primary 
 						border-opacity-50 
 						border-2 
 						p-3 
 						rounded-xl'
-						ref={ref}
-						onChange={onChange}
-						value={value}
-						onBlur={onBlur}
+								ref={ref}
+								onChange={onChange}
+								value={value}
+								onBlur={onBlur}
+							/>
+						)}
 					/>
-				)}
-			/>
-			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6'>
-				{rest.errors?.username ? rest.errors.username?.message : ''}
-			</Paragraph>
+
+					<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6 transition-all duration-150 '>
+						{rest?.errors?.username
+							? rest?.errors?.username?.message
+							: ''}
+					</Paragraph>
+				</>
+			)}
 			<Controller
 				name='email'
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				//@ts-ignore
 				control={rest.control}
 				rules={{
-					required: {
-						value: true,
-						message: 'hayque poner un email',
-					},
+					required: true,
 				}}
 				render={({ field: { ref, value, name, onBlur, onChange } }) => (
 					<Input
@@ -88,22 +93,19 @@ export const Sign: FC<ISign> = ({
 					/>
 				)}
 			/>
-			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6'>
-				{rest.errors.email ? rest.errors.email?.message : ''}
+			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6 transition-all duration-150 '>
+				{rest?.errors?.email ? rest?.errors?.email?.message : ''}
 			</Paragraph>
 			<Controller
-				name='passport'
+				name='password'
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				//@ts-ignore
 				control={rest.control}
 				rules={{
-					required: {
-						value: true,
-						message: 'hayque poner un email',
-					},
+					required: true,
 				}}
 				render={({ field: { ref, value, name, onBlur, onChange } }) => (
-					<Input
+					<Password
 						placeholder={name}
 						name={name}
 						className='
@@ -112,7 +114,8 @@ export const Sign: FC<ISign> = ({
 						border-opacity-50 
 						border-2 
 						p-3 
-						rounded-xl'
+						rounded-xl
+						input-mask'
 						ref={ref}
 						onChange={onChange}
 						value={value}
@@ -120,8 +123,8 @@ export const Sign: FC<ISign> = ({
 					/>
 				)}
 			/>
-			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6'>
-				{rest.errors?.passport ? rest.errors.passport?.message : ''}
+			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6 z-10 transition-all duration-150 '>
+				{rest?.errors?.password ? rest?.errors?.password?.message : ''}
 			</Paragraph>
 			<Button
 				htmlType='submit'
@@ -141,7 +144,10 @@ export const Sign: FC<ISign> = ({
 			<Paragraph className='text-center w-full'>
 				Already Have An Account?
 				<Link
-					href={'h'}
+					href={clsx({
+						login: LogOrSignup === 'login',
+						register: LogOrSignup === 'sign up',
+					})}
 					className='capitalize text-primary font-bold ml-2'
 				>
 					{LogOrSignup}

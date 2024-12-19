@@ -1,4 +1,5 @@
-import { Register } from '../../pages/Register'
+import { Register } from "../../../pages/Register";
+
 
 export default function ResisterPage() {
 	return (

@@ -7,6 +7,7 @@ import { Providers } from './../providers/Providers'
 const montserrat = Montserrat({
 	subsets: ['latin'],
 	weight: ['400', '500', '700', '900'],
+	variable: '--montserrat',
 	preload: true,
 })
 
@@ -23,10 +24,8 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${montserrat.className} font-normal text-base`}>
-				<Providers>
-					{children}
-				</Providers>
+			<body className={`${montserrat.className}  font-normal text-base`}>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	)

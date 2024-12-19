@@ -2,8 +2,10 @@ import { FC } from 'react'
 import { IBigTitle } from '../types/types'
 import Title from 'antd/es/typography/Title'
 import clsx from 'clsx'
+import { useFormContext } from 'react-hook-form'
 
 export const BigTitle: FC<IBigTitle> = ({ title, wordSelect, size,center }) => {
+
 	const a = title.split(' ')
 	return (
 		<Title className={clsx('flex w-auto  text-3xl flex-wrap -ml-5 ',{

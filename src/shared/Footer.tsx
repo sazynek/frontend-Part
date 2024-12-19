@@ -15,7 +15,7 @@ export const Footer: FC = () => {
 	// useState()
 	return (
 		<footer className='pt-10'>
-			<Container>
+			<Container className='mb-24'>
 				<Flex
 					className='downLine mb-20'
 					component={'ul'}

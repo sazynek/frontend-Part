@@ -1,34 +1,152 @@
 'use client'
-import { Input } from 'antd'
-import { Controller, Form, useForm } from 'react-hook-form'
-import { Container } from './Container'
-export const Sign = () => {
-	const { control, } = useForm()
-	const handleForm = (data?) => {
+import { Button, Input } from 'antd'
+import { Controller, Form } from 'react-hook-form'
+import { ISign } from '../types/types'
+import { FC } from 'react'
+import clsx from 'clsx'
+import Paragraph from 'antd/es/typography/Paragraph'
+import Link from 'next/link'
+
+export const Sign: FC<ISign> = ({
+	className,
+	btnTitle,
+	LogOrSignup,
+	...rest
+}) => {
+	const handleForm = (data?: unknown) => {
 		console.log(data ?? '')
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		//@ts-ignore
+		rest.reset()
 	}
 	return (
-		<Container className=''>
-			<Form
-				control={control}
-				onSubmit={handleForm}
+		<Form
+			className={clsx(className, 'max-w-[350px] relative')}
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-ignore
+			control={rest.control}
+			onSubmit={handleForm}
+		>
+			<Controller
+				name={'username'}
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				//@ts-ignore
+				control={rest.control}
+				rules={{
+					required: {
+						value: true,
+						message: 'hayque poner un email',
+					},
+				}}
+				render={({ field: { ref, value, name, onBlur, onChange } }) => (
+					<Input
+						placeholder={name}
+						name={name}
+						className='
+						border-solid 
+						border-primary 
+						border-opacity-50 
+						border-2 
+						p-3 
+						rounded-xl'
+						ref={ref}
+						onChange={onChange}
+						value={value}
+						onBlur={onBlur}
+					/>
+				)}
+			/>
+			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6'>
+				{rest.errors?.username ? rest.errors.username?.message : ''}
+			</Paragraph>
+			<Controller
+				name='email'
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				//@ts-ignore
+				control={rest.control}
+				rules={{
+					required: {
+						value: true,
+						message: 'hayque poner un email',
+					},
+				}}
+				render={({ field: { ref, value, name, onBlur, onChange } }) => (
+					<Input
+						placeholder={name}
+						className='
+						border-solid 
+						border-primary 
+						border-opacity-50
+						border-2 
+						p-3  
+						rounded-xl'
+						name={name}
+						ref={ref}
+						onChange={onChange}
+						value={value}
+						onBlur={onBlur}
+					/>
+				)}
+			/>
+			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6'>
+				{rest.errors.email ? rest.errors.email?.message : ''}
+			</Paragraph>
+			<Controller
+				name='passport'
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				//@ts-ignore
+				control={rest.control}
+				rules={{
+					required: {
+						value: true,
+						message: 'hayque poner un email',
+					},
+				}}
+				render={({ field: { ref, value, name, onBlur, onChange } }) => (
+					<Input
+						placeholder={name}
+						name={name}
+						className='
+						border-solid 
+						border-primary 
+						border-opacity-50 
+						border-2 
+						p-3 
+						rounded-xl'
+						ref={ref}
+						onChange={onChange}
+						value={value}
+						onBlur={onBlur}
+					/>
+				)}
+			/>
+			<Paragraph className='text-red-700 text-lg font-thin italic my-0 mt-2 mb-6'>
+				{rest.errors?.passport ? rest.errors.passport?.message : ''}
+			</Paragraph>
+			<Button
+				htmlType='submit'
+				variant='filled'
+				className='uppercase bg-primary text-white 
+				text-lg 
+				font-bold
+				p-5
+				rounded-xl
+				text-center 
+				w-full 
+				py-8 
+				mb-5'
 			>
-				<Controller
-					name='first'
-					control={control}
-					render={({
-						field: { ref, value, name, onBlur, onChange },
-					}) => (
-						<Input
-							name={name}
-							ref={ref}
-							onChange={onChange}
-							value={value}
-							onBlur={onBlur}
-						/>
-					)}
-				/>
-			</Form>
-		</Container>
+				{btnTitle}
+			</Button>
+			<Paragraph className='text-center w-full'>
+				Already Have An Account?
+				<Link
+					href={'h'}
+					className='capitalize text-primary font-bold ml-2'
+				>
+					{LogOrSignup}
+				</Link>
+			</Paragraph>
+		</Form>
 	)
 }

@@ -1,3 +1,5 @@
+import { PropsWithChildren } from 'react'
+
 export interface IBigTitle {
 	title: string
 	wordSelect: string
@@ -7,7 +9,7 @@ export interface IBigTitle {
 export interface IDoubleBtn {
 	firstBtn: string
 	secondBtn: string
-	LogReg?:boolean
+	LogReg?: boolean
 }
 export interface IStatTItle {
 	title: string
@@ -69,4 +71,24 @@ export interface IFood {
 	rating: number
 	img: string
 	status: EnumStatus
+}
+export interface IContainer extends PropsWithChildren {
+	className?: string
+}
+export interface IClassname {
+	className?: string
+}
+export interface LoginProps extends IClassname, IRest {
+	title: string
+	btnTitle: string
+	LogOrSignup: 'login' | 'sing up'
+}
+
+export interface ISign extends Omit<LoginProps, 'title'> {
+	selfMethod?: string
+}
+export interface IRest {
+	control: unknown
+	reset: unknown
+	errors: unknown
 }

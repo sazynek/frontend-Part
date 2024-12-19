@@ -7,7 +7,6 @@ import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ConfigProvider, ConfigProviderProps, GetProp } from 'antd'
 import { FC, PropsWithChildren } from 'react'
-
 type WaveConfig = GetProp<ConfigProviderProps, 'wave'>
 
 // Prepare effect holder
@@ -120,6 +119,7 @@ const showShakeEffect: WaveConfig['showEffect'] = (node, { component }) => {
 
 	loop()
 }
+
 export const query = new QueryClient()
 
 export const Providers: FC<PropsWithChildren> = ({ children }) => {
@@ -130,9 +130,12 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 			transformers={[legacyLogicalPropertiesTransformer]}
 		>
 			<ConfigProvider
+				theme={{
+					token: { fontFamily: 'Montserrat, "Montserrat Fallback"' },
+				}}
 				warning={{ strict: true }}
 				button={{ autoInsertSpace: true }}
-				typography={{ className: 'text-base ', }}
+				typography={{ className: `text-base` }}
 				wave={{ showEffect: showShakeEffect }}
 			>
 				<QueryClientProvider client={query}>

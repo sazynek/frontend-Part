@@ -8,13 +8,11 @@ import { Restaurant } from '../shared/first/Restaurant'
 
 export const Home: FC = () => {
 	return (
-		<div className=''>
-			<main>
-				<Enjoy />
-				<Stat />
-				<Restaurant />
-				<Dishes />
-			</main>
-		</div>
+		<main>
+			<Enjoy />
+			<Stat />
+			<Restaurant />
+			<Dishes />
+		</main>
 	)
 }

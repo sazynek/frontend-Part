@@ -1,9 +1,7 @@
-import { Home } from '../pages/Home'
+import { redirect } from "next/navigation"
 
-export default function HomePage() {
-	return (
-		<div className=''>
-			<Home />
-		</div>
-	)
+
+export default function RootPage() {
+    redirect('home')
+	return <div></div>
 }

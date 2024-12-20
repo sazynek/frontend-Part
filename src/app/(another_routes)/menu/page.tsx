@@ -1,10 +1,11 @@
 'use clint'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { Container } from '../../components/Container'
 import axios from 'axios'
-import { IResponse } from '../../types/types'
-import { MyCard } from '../../components/MyCard'
-import { query } from '../../providers/Providers'
+import { IResponse } from '../../../types/types'
+import { query } from '../../../providers/Providers'
+import { Container } from '../../../components/Container'
+import { MyCard } from '../../../components/MyCard'
+
 
 export default function MenuPage() {
 	const { data: products } = useQuery<IResponse[]>({

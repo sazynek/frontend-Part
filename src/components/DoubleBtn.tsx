@@ -14,7 +14,7 @@ export const DoubleBtn: FC<IDoubleBtn> = ({ firstBtn, secondBtn, LogReg }) => {
 					gap={20}
 				>
 					<li>
-						<Link href={'login'}>
+						<Link href={'/login'}>
 							<Button
 								type='default'
 								className='p-5 border-primary hover:border-opacity-80'
@@ -24,7 +24,7 @@ export const DoubleBtn: FC<IDoubleBtn> = ({ firstBtn, secondBtn, LogReg }) => {
 						</Link>
 					</li>
 					<li>
-						<Link href={'register'}>
+						<Link href={'/register'}>
 							<Button
 								type='primary'
 								className='bg-primary hover:bg-opacity-80 rounded-xl p-5'

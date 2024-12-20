@@ -25,7 +25,7 @@ export const Header: FC = () => {
 							component='ul'
 							justify='space-between'
 						>
-							<Link href={'/'}>
+							<Link href={'/home'}>
 								<li >
 									<Image
 										className='self-center w-auto h-auto'

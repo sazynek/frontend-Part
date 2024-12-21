@@ -100,3 +100,13 @@ export interface ILogin extends Pick<LoginProps, 'LogOrSignup'> {
 	btnTitle: 'sign in' | 'sign up'
 	title: 'Sign in to eatly' | 'Sign Up to eatly'
 }
+
+export interface IArticles {
+	id: string
+	title: string
+	publicDate: string
+	imgUrl: string
+	author?: string | null
+	updatedAt: string
+	createdAt: string
+}

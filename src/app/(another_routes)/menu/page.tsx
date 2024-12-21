@@ -6,6 +6,7 @@ import { query } from '../../../providers/Providers'
 import { Container } from '../../../components/Container'
 import { MyCard } from '../../../components/MyCard'
 import { BigTitle } from '../../../components/BigTitle'
+import { Accord } from '../../../components/Accord'
 
 export default function MenuPage() {
 	const { data: products } = useQuery<IResponse[]>({
@@ -41,78 +42,88 @@ export default function MenuPage() {
 		console.log(item.categories[0].productCategories)
 	})
 	return (
-		<Container className='mb-24'>
-			<div className='downLine mb-32 pb-16'>
-				<div className='ml-6'>
-					<BigTitle
-						size={44}
-						title='Chicken so Yummy'
-						wordSelect='Yummy'
-						className=''
-					/>
-				</div>
-				<div className='grid grid-cols-5 gap-5'>
-					{products?.map(item => {
-						if (item.categories[0].productCategories === 'chicken')
-							return (
-								<div
-									className=''
-									key={item.id}
-								>
-									<MyCard
-										onClick={userLikeThis}
-										cost={item.praise.cost}
-										famous={item.statusProduct.famous}
-										id={item.id}
-										imgUrl={item.imgUrl}
-										rating={item.statusProduct.rating}
-										time={item.time}
-										title={item.title}
-										alt='card'
-										userLike={item.statusProduct.userLike}
-									/>
-								</div>
+		<>
+			<Container className='mb-24'>
+				<div className='downLine mb-32 pb-16'>
+					<div className='ml-6'>
+						<BigTitle
+							size={44}
+							title='Chicken so Yummy'
+							wordSelect='Yummy'
+							className=''
+						/>
+					</div>
+					<div className='grid grid-cols-5 gap-5'>
+						{products?.map(item => {
+							if (
+								item.categories[0].productCategories ===
+								'chicken'
 							)
-					})}
+								return (
+									<div
+										className=''
+										key={item.id}
+									>
+										<MyCard
+											onClick={userLikeThis}
+											cost={item.praise.cost}
+											famous={item.statusProduct.famous}
+											id={item.id}
+											imgUrl={item.imgUrl}
+											rating={item.statusProduct.rating}
+											time={item.time}
+											title={item.title}
+											alt='card'
+											userLike={
+												item.statusProduct.userLike
+											}
+										/>
+									</div>
+								)
+						})}
+					</div>
 				</div>
-			</div>
-			<div>
-				<div className='ml-6'>
-					<BigTitle
-						size={44}
-						title='Chicken with Vegetables'
-						wordSelect='Vegetables'
-						className=''
-					/>
-				</div>
-				<div className='grid grid-cols-5 gap-5'>
-					{products?.map(item => {
-						if (
-							item.categories[0].productCategories ===
-							'chicken_with_vegetables'
-						)
-							return (
-								<div
-									className=''
-									key={item.id}
-								>
-									<MyCard
-										onClick={userLikeThis}
-										cost={item.praise.cost}
-										famous={item.statusProduct.famous}
-										id={item.id}
-										imgUrl={item.imgUrl}
-										rating={item.statusProduct.rating}
-										time={item.time}
-										title={item.title}
-										alt='card'
-										userLike={item.statusProduct.userLike}
-									/>
-								</div>
+				<div>
+					<div className='ml-6'>
+						<BigTitle
+							size={44}
+							title='Chicken with Vegetables'
+							wordSelect='Vegetables'
+							className=''
+						/>
+					</div>
+					<div className='grid grid-cols-5 gap-5'>
+						{products?.map(item => {
+							if (
+								item.categories[0].productCategories ===
+								'chicken_with_vegetables'
 							)
-					})}
+								return (
+									<div
+										className=''
+										key={item.id}
+									>
+										<MyCard
+											onClick={userLikeThis}
+											cost={item.praise.cost}
+											famous={item.statusProduct.famous}
+											id={item.id}
+											imgUrl={item.imgUrl}
+											rating={item.statusProduct.rating}
+											time={item.time}
+											title={item.title}
+											alt='card'
+											userLike={
+												item.statusProduct.userLike
+											}
+										/>
+									</div>
+								)
+						})}
+					</div>
 				</div>
-			</div>
-		</Container>
+			</Container>
+			<Accord />
+		</>
 	)
 }

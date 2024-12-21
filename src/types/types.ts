@@ -78,6 +78,9 @@ export interface IContainer extends PropsWithChildren {
 export interface IClassname {
 	className?: string
 }
+export interface IHref {
+	href?: string
+}
 export interface LoginProps extends IClassname, IRest {
 	title: string
 	btnTitle: string
@@ -101,7 +104,7 @@ export interface ILogin extends Pick<LoginProps, 'LogOrSignup'> {
 	title: 'Sign in to eatly' | 'Sign Up to eatly'
 }
 
-export interface IArticles {
+export interface IArticles extends IClassname, IHref {
 	id: string
 	title: string
 	publicDate: string

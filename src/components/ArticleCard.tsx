@@ -4,15 +4,19 @@ import { Card, Flex } from 'antd'
 import Image from 'next/image'
 import Title from 'antd/es/typography/Title'
 import Paragraph from 'antd/es/typography/Paragraph'
+import clsx from 'clsx'
+import Link from 'next/link'
 
 export const ArticleCard: FC<Partial<IArticles>> = ({
 	imgUrl,
 	author,
 	publicDate,
 	title,
+	className,
+	href
 }) => {
 	return (
-		<div>
+		<Link href={href!} className={clsx('mb-16', className)}>
 			<Card hoverable>
 				<Image
 					alt={title + ' article'}
@@ -50,6 +54,6 @@ export const ArticleCard: FC<Partial<IArticles>> = ({
 					</Flex>
 				</div>
 			</Card>
-		</div>
+		</Link>
 	)
 }

@@ -24,7 +24,7 @@ export const Blog: FC = () => {
 	const [go, setGo] = useState<number>(0)
 	const handleArrow = (multiplyNumber: number | null) => {
 		if (multiplyNumber !== null) {
-			setGo(prev=>prev+multiplyNumber)
+			setGo(prev => prev + multiplyNumber)
 		}
 	}
 	return (
@@ -36,24 +36,14 @@ export const Blog: FC = () => {
 				center='center'
 				className=''
 			/>
-			<Row
-			
-				style={{ translate: `${1 * go}px` }}
-				className='transition-all duration-150 '
-				gutter={[50, 110]}
-			>
-				{articles?.map((item, index) => {
-					if (index <= 5)
-						return (
-							<Col
-								span={8}
-								key={item.id}
-							>
-								<ArticleCard {...item} />
-							</Col>
-						)
-				})}
-			</Row>
+
+			{articles?.map(item => (
+				<ArticleCard
+					key={item.id}
+					{...item}
+				/>
+			))}
+
 			<div className='arrow flex justify-center w-full gap-20 my-24'>
 				<FaArrowLeft
 					onClick={() => handleArrow(-1700)}

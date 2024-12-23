@@ -21,9 +21,11 @@ export interface IMyCard
 		StatusProduct,
 		Praise {
 	alt?: string
-	onClick: (index?: string | undefined) => void
+	onClick?: (index?: string | undefined) => void
 	mark?: boolean
 	index?: string
+	isCart?: boolean
+	deleteItem?:boolean
 }
 
 export interface IResponse {

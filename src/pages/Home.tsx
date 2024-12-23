@@ -13,9 +13,9 @@ export const Home: FC = () => {
 		<main>
 			{/* <Enjoy />
 			<Stat />
-			<Restaurant />
+			<Restaurant />*/}
 			<Dishes />
-			<Accord/> */}
+			{/* <Accord/>  */}
 			<Cart/>
 		</main>
 	)

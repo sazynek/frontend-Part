@@ -1,15 +1,20 @@
+'use client'
 import Card from 'antd/es/card/Card'
 import Meta from 'antd/es/card/Meta'
 import '../app/support.scss'
 import { FC } from 'react'
 import Image from 'next/image'
-import { IMyCard } from '../types/types'
-import { FaBookmark } from 'react-icons/fa'
+import { IMyCard, IResponse } from '../types/types'
+import { FaBookmark, FaMinus } from 'react-icons/fa'
 import clsx from 'clsx'
 import Paragraph from 'antd/es/typography/Paragraph'
 import Text from 'antd/es/typography/Text'
 import { Flex } from 'antd'
 import { FaPlus } from 'react-icons/fa6'
+import { useCart } from '../store/store'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import { query } from '../providers/Providers'
 export const MyCard: FC<IMyCard> = ({
 	cost,
 	famous,
@@ -20,21 +25,83 @@ export const MyCard: FC<IMyCard> = ({
 	title,
 	alt,
 	userLike,
-	onClick,
+	isCart,
 }) => {
+	const { setCart, deleteCartItem } = useCart(select => select)
+	const handleAddCartItem = () => {
+		setCart({
+			cost,
+			famous,
+			id,
+			imgUrl,
+			rating,
+			time,
+			title,
+			alt,
+			userLike,
+		})
+	}
+	const handleDeleteCartItem = () => {
+		deleteCartItem({
+			cost,
+			famous,
+			id: id,
+			imgUrl,
+			rating,
+			time,
+			title,
+			alt,
+			userLike,
+		})
+	}
+
+	//
+	const { data: products } = useQuery<IResponse[]>({
+		queryKey: ['products'],
+		queryFn: async () =>
+			(await axios.get('http://localhost:3100/products')).data,
+	})
+
+	const { mutate } = useMutation({
+		mutationKey: ['mutate_status-prod'],
+		mutationFn: (index?: string | undefined) => {
+			// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+			const { statusProductId, statusProduct } = products?.find(
+				item => item.id === index,
+			)!
+			return axios.put(
+				`http://localhost:3100/status-product/${statusProductId}`,
+				{
+					userLike: !statusProduct?.userLike,
+				},
+			)
+		},
+		onSuccess: ({ data }) => {
+			console.log('is success', data, 'new data')
+			query.invalidateQueries()
+		},
+	})
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const userLikeThis = (index?: string | undefined) => {
+		mutate(index)
+	}
+
 	return (
 		<Card
 			className='w-full h-full p-5 relative'
 			hoverable
 			cover={
 				<>
-					<FaBookmark
-						onClick={() => onClick(id)}
-						className={clsx(
-							'w-auto absolute right-3 top-3 cursor-pointer',
-							{ 'text-red-500': userLike === true },
-						)}
-					/>
+					{!isCart && (
+						<FaBookmark
+							onClick={() => userLikeThis(id)}
+							className={clsx(
+								'w-auto absolute right-3 top-3 cursor-pointer',
+								{ 'text-red-500': userLike === true },
+							)}
+						/>
+					)}
 					<Image
 						alt={alt ?? 'food'}
 						src={'/' + imgUrl}
@@ -87,12 +154,36 @@ export const MyCard: FC<IMyCard> = ({
 					${cost}
 					<span className='text-gray-500 text-sm font-bold'>.99</span>
 				</Text>
-				<button
-					type='button'
-					className='rounded-lg p-2 bg-gray-800'
-				>
-					<FaPlus className=' text-white text-xl ' />
-				</button>
+				{!isCart && (
+					<button
+						onClick={handleAddCartItem}
+						type='button'
+						className='rounded-lg p-2 
+					bg-gray-800 
+					text-white 
+					hover:bg-opacity-30 
+					hover:text-gray-800 
+					transition-colors 
+					duration-150'
+					>
+						<FaPlus className='text-xl' />
+					</button>
+				)}
+				{isCart && (
+					<button
+						onClick={handleDeleteCartItem}
+						type='button'
+						className='rounded-lg p-2 
+					bg-gray-800 
+					text-white 
+					hover:bg-opacity-30 
+					hover:text-gray-800 
+					transition-colors 
+					duration-150'
+					>
+						<FaMinus className='text-xl' />
+					</button>
+				)}
 			</Flex>
 		</Card>
 	)

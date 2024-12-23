@@ -1,12 +1,14 @@
 'use client'
 import { Drawer } from 'antd'
 import { useState } from 'react'
-import { useSome } from '../store/store'
+import { useCart } from '../store/store'
 import { MyCard } from './MyCard'
 
 export const Cart = () => {
-	const { bears } = useSome()
+	const { cartItem } = useCart(select => select)
 	const [open, setOpen] = useState<boolean>(false)
+
+
 	return (
 		<div>
 			<button
@@ -20,27 +22,30 @@ export const Cart = () => {
 				open={open}
 				onClose={() => setOpen(false)}
 			>
-				{bears.map(item => (
-					<div key={item}>
-						<MyCard
-							cost={5}
-							famous='3'
-							id='2'
-							imgUrl='article0.png'
-							onClick={() => 2}
-							title="So if there is a bad outcome, it's my bad outcome."
-							alt='card'
-							index='5'
-							key={'any'}
-							mark={true}
-							praiseStatus='bay'
-							userLike={true}
-							rating='5'
-							time='3'
-						/>
-						{item}
-					</div>
-				))}
+				{cartItem?.map(item => {
+					return (
+						<div
+							className='mt-10 first:mt-0'
+							key={item.id}
+						>
+							<MyCard
+								deleteItem
+								cost={item?.cost}
+								famous={item.famous}
+								id={item.id}
+								imgUrl={item.imgUrl}
+								title={item.title}
+								alt={item.alt}
+								index={item.index}
+								key={item.id}
+								isCart={true}
+								praiseStatus={item.praiseStatus ?? ''}
+								rating={item.rating}
+								time={item.time}
+							/>
+						</div>
+					)
+				})}
 			</Drawer>
 		</div>
 	)

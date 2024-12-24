@@ -1,3 +1,30 @@
-.input-mask{
-    
+.ant-slider-handle-1,
+.ant-slider-handle-3 {
+	display: none !important;
+	user-select: none !important;
+}
+.ant-slider-handle-2 {
+	background: #6c5fbc;
+	&::after {
+		background: #6c5fbc;
+		box-shadow: 0 0 0 2px #6c5fbc;
+	}
+}
+.ant-slider-handle {
+	
+	background: #6c5fbc;
+}
+.slick-dots > li {
+	@apply bg-opacity-70 bg-purple-600;
+	&:hover {
+		@apply bg-opacity-70 bg-primary;
+	}
+}
+.slick-dots {
+	.slick-active > button {
+		&:hover {
+			@apply bg-opacity-70 bg-primary;
+		}
+		@apply bg-primary ;
+	}
 }

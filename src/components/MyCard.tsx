@@ -11,10 +11,11 @@ import Paragraph from 'antd/es/typography/Paragraph'
 import Text from 'antd/es/typography/Text'
 import { Flex } from 'antd'
 import { FaPlus } from 'react-icons/fa6'
-import { useCart } from '../store/store'
+
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { query } from '../providers/Providers'
+
 export const MyCard: FC<IMyCard> = ({
 	cost,
 	famous,
@@ -26,33 +27,51 @@ export const MyCard: FC<IMyCard> = ({
 	alt,
 	userLike,
 	isCart,
+	cartItemId,
 }) => {
-	const { setCart, deleteCartItem } = useCart(select => select)
+	const mutation = useMutation({
+		mutationKey: ['product-collections'],
+		mutationFn: async () => {
+			return await axios.post(
+				'http://localhost:3100/product-collections',
+				{
+					cost,
+					famous,
+
+					imgUrl,
+					rating,
+					time,
+					title,
+					alt,
+					userLike,
+					cartItemId,
+				},
+			)
+		},
+		onSuccess: () => {
+			query.invalidateQueries()
+		},
+	})
+	const mutation2 = useMutation({
+		mutationKey: ['product-collections'],
+		mutationFn: async (id: string) => {
+			return await axios.delete(
+				`http://localhost:3100/product-collections/${id}`,
+			)
+		},
+		onSuccess: () => {
+			query.invalidateQueries()
+		},
+	})
+
+	// const { deleteCartItem } = useCart(select => select)
 	const handleAddCartItem = () => {
-		setCart({
-			cost,
-			famous,
-			id,
-			imgUrl,
-			rating,
-			time,
-			title,
-			alt,
-			userLike,
-		})
+		mutation.mutate()
 	}
+
 	const handleDeleteCartItem = () => {
-		deleteCartItem({
-			cost,
-			famous,
-			id: id,
-			imgUrl,
-			rating,
-			time,
-			title,
-			alt,
-			userLike,
-		})
+		// console.log(id)
+		if (id !== '') mutation2.mutate(id)
 	}
 
 	//

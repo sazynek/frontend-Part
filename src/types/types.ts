@@ -25,7 +25,8 @@ export interface IMyCard
 	mark?: boolean
 	index?: string
 	isCart?: boolean
-	deleteItem?:boolean
+	cartItemId?: string
+	setItemSum?: (numb: number[] | number) => void
 }
 
 export interface IResponse {

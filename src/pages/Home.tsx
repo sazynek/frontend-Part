@@ -6,17 +6,15 @@ import { Stat } from '../shared/first/Stat.tsx'
 import { Dishes } from '../shared/first/Dishes'
 import { Restaurant } from '../shared/first/Restaurant'
 import { Accord } from '../components/Accord'
-import { Cart } from '../components/Cart'
 
 export const Home: FC = () => {
 	return (
 		<main>
-			{/* <Enjoy />
+			<Enjoy />
 			<Stat />
-			<Restaurant />*/}
+			<Restaurant />
 			<Dishes />
-			{/* <Accord/>  */}
-			<Cart/>
+			<Accord />
 		</main>
 	)
 }

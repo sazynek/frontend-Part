@@ -1,69 +1,37 @@
 import { create } from 'zustand'
-import { IMyCard } from '../types/types'
-
-interface cart {
-	cartItem: Omit<IMyCard, 'onClick'>[]
-	setCart: (cartObj: Omit<IMyCard, 'onClick'>) => void
-	getCart: () => Omit<IMyCard, 'onClick'>[]
-	deleteCartItem: (cartObj: Omit<IMyCard, 'onClick'>) => unknown[] | void
+interface ICart {
+	openCart: boolean
+	setCart: (booleanParam: boolean) => void
+}
+interface ICartCount {
+	sum: number
+	setSum: (obj: number[]) => void
 }
 
-export const useCart = create<cart>(set => ({
-	cartItem: [],
-	getCart: () => {
-		const a: Omit<IMyCard, 'onClick'>[] = JSON.parse(
-			localStorage.getItem('cartItem')!,
-		)
+const openCartFunc = create<ICart>(set => {
+	return {
+		openCart: false,
+		setCart: booleanParam =>
+			set(() => {
+				// console.log(state.openCart)
 
-		// if (a.length) return select
-		return []
-	},
-	setCart: obj =>
-		set(select => {
-			const a = { cartItem: [...select.cartItem, obj] }
-			// console.log(a.cartItem)
+				return { openCart: booleanParam }
+			}),
+	}
+})
 
-			localStorage.setItem('cartItem', JSON.stringify(a.cartItem))
-
-			return { cartItem: a.cartItem }
-		}),
-	deleteCartItem: obj =>
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		//@ts-ignore
-		set(select => {
-			let result
-			const items = select.cartItem
-			const allSelect = items.filter(item => {
-				if (
-					obj.cost === item.cost &&
-					obj.famous === item.famous &&
-					obj.id === item.id &&
-					obj.imgUrl === item.imgUrl &&
-					obj.rating === item.rating &&
-					obj.time === item.time &&
-					obj.title === item.title
-				)
-					return true
-			})
-			const allAnother = items.filter(item => {
-				if (
-					obj.cost !== item.cost ||
-					obj.famous !== item.famous ||
-					obj.id !== item.id ||
-					obj.imgUrl !== item.imgUrl ||
-					obj.rating !== item.rating ||
-					obj.time !== item.time ||
-					obj.title !== item.title
-				)
-					return true
-			})
-			const [, ...anSpread] = allSelect
-
-			if (allSelect.length !== 0) result = [...anSpread, ...allAnother]
-
-			localStorage.setItem('cartItem', JSON.stringify(result))
-			console.log(result)
-			// console.log(result, '---', select.cartItem)
-			return { cartItem: result }
+const countCartSum = create<ICartCount>(set => ({
+	sum: 0,
+	setSum: obj =>
+		set(() => {
+			let sum
+			if (Array.isArray(obj) && obj.length !== 0)
+				sum = obj.reduce((acc, value) => Math.round(acc + value), 0)
+			return { sum }
 		}),
 }))
+
+export const CartFuncAll = {
+	countCartSum,
+	openCartFunc,
+}

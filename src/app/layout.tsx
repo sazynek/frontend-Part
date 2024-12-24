@@ -4,6 +4,7 @@ import './globals.scss'
 import { ReactNode } from 'react'
 import { Providers } from './../providers/Providers'
 
+
 const montserrat = Montserrat({
 	subsets: ['latin'],
 	weight: ['400', '500', '700', '900'],

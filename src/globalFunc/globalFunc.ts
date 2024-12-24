@@ -5,10 +5,20 @@ export const isInt = (n: number) => {
 export class Count {
 	constructor(private count: number[]) {}
 
-	countFuncInt(countNumb: number,division:number=6) {
-		if (isInt((countNumb) / division)){
-		this.count.push(countNumb)
-		const length = this.count.length
-		return Number(length)}
+	countFuncInt(countNumb: number, division: number = 6) {
+		if (isInt(countNumb / division)) {
+			this.count.push(countNumb)
+			const length = this.count.length
+			return Number(length)
+		}
 	}
+}
+
+export const formatCurrency = (numb: number) => {
+	const { format } = new Intl.NumberFormat('Ru-ru', {
+		style: 'currency',
+		trailingZeroDisplay: 'stripIfInteger',
+		currency: 'RUB',
+	})
+	return format(numb)
 }

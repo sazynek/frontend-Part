@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { Dispatch, PropsWithChildren, SetStateAction } from 'react'
 
 export interface IBigTitle extends IClassname {
 	title: string
@@ -115,4 +115,24 @@ export interface IArticles extends IClassname, IHref {
 	author?: string | null
 	updatedAt: string
 	createdAt: string
+}
+export interface IParams {
+	search?: string
+	praise?: number
+	categ?: 'chicken' | 'chicken_with_vegetables'
+}
+
+export interface ISortDataProps {
+	go?: boolean
+	SData?: IParams
+	setSData: Dispatch<SetStateAction<IParams>>
+	data?: IResponse[]
+}
+
+export interface IComments {
+	id: string
+	content: string
+	createdAt: string
+	updatedAt: string
+	userId: string
 }

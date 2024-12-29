@@ -57,13 +57,34 @@ export const Footer: FC = () => {
 						justify='space-between'
 						className='w-44'
 					>
-						<CiInstagram size={25} />
-						<FaVk size={25} />
-						<FaFacebookF size={25} />
-						<FaTwitter
-							size={25}
-							fill='#6C5FBC'
-						/>
+						<Link href={'/'}>
+							<CiInstagram
+								size={25}
+								className='cursor-pointer'
+							/>
+						</Link>
+
+						<Link href={'/'}>
+							<FaVk
+								size={25}
+								className='cursor-pointer'
+							/>
+						</Link>
+
+						<Link href={'/'}>
+							<FaFacebookF
+								size={25}
+								className='cursor-pointer'
+							/>
+						</Link>
+
+						<Link href={'/'}>
+							<FaTwitter
+								size={25}
+								className='cursor-pointer'
+								fill='#6C5FBC'
+							/>
+						</Link>
 					</Flex>
 				</Flex>
 			</Container>

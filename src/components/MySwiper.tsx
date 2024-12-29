@@ -1,13 +1,17 @@
 import { Flex, Slider } from 'antd'
 import { FC, useState } from 'react'
 import './componentStyle/componentStyle.scss'
-import { IClassname } from '../types/types'
+import { IClassname, ISortDataProps } from '../types/types'
 import clsx from 'clsx'
-export const MySwiper: FC<IClassname> = ({ className }) => {
+
+interface SortDataSwiper extends ISortDataProps, IClassname {
+	selfField?: ''
+}
+
+export const MySwiper: FC<SortDataSwiper> = ({ className, setSData }) => {
 	const [value, setValue] = useState([0, 0, 1000])
 	const handleSwiper = (a: number[]) => {
-		console.log(a[1])
-
+		setSData(prev => ({ ...prev, praise: a[1] }))
 		setValue(a)
 	}
 	return (

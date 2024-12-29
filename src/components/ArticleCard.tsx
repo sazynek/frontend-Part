@@ -13,10 +13,13 @@ export const ArticleCard: FC<Partial<IArticles>> = ({
 	publicDate,
 	title,
 	className,
-	href
+	href,
 }) => {
 	return (
-		<Link href={href!} className={clsx('mb-16', className)}>
+		<Link
+			href={href!}
+			className={clsx('mb-16', className)}
+		>
 			<Card hoverable>
 				<Image
 					alt={title + ' article'}
@@ -34,7 +37,7 @@ export const ArticleCard: FC<Partial<IArticles>> = ({
 						<Flex gap={15}>
 							<Image
 								alt={title + ' article'}
-								src={'/avtor0.png'}
+								src={'/' + imgUrl}
 								className=' h-12 w-12 self-start'
 								width={300}
 								height={300}

@@ -9,6 +9,7 @@ export const FooterHeaderLinks = [
 	{ title: 'Menu', link: 'menu' },
 	{ title: 'Blog', link: 'blog' },
 	{ title: 'Contact', link: 'contact' },
+	{ title: 'Statistics', link: 'statistics' },
 ]
 export const Header: FC = () => {
 	return (
@@ -26,7 +27,7 @@ export const Header: FC = () => {
 							justify='space-between'
 						>
 							<Link href={'/home'}>
-								<li >
+								<li>
 									<Image
 										className='self-center w-auto h-auto'
 										src={'/Logo.png'}

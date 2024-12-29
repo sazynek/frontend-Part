@@ -1,15 +1,18 @@
 'use client'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { IResponse } from '../types/types'
+import { IParams, IResponse } from '../types/types'
 import { MyCard } from '../components/MyCard'
 import { BigTitle } from '../components/BigTitle'
 import { Container } from '../components/Container'
 import { query } from '../providers/Providers'
 import { Accord } from '../components/Accord'
 import { SortMenu } from '../shared/SortMenu'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 export const Menu = () => {
+	const [hay,setHay]=useState<boolean>(false)
 	const { data: products } = useQuery<IResponse[]>({
 		queryKey: ['products'],
 		queryFn: async () =>
@@ -22,7 +25,7 @@ export const Menu = () => {
 			const { statusProductId, statusProduct } = products?.find(
 				item => item.id === index,
 			)!
-			console.log(statusProductId, 'a is ')
+
 			return axios.put(
 				`http://localhost:3100/status-product/${statusProductId}`,
 				{
@@ -30,8 +33,7 @@ export const Menu = () => {
 				},
 			)
 		},
-		onSuccess: ({ data }) => {
-			console.log('is success', data, 'new data')
+		onSuccess: () => {
 			query.invalidateQueries()
 		},
 	})
@@ -39,14 +41,27 @@ export const Menu = () => {
 		mutate(index)
 	}
 
-	products?.map(item => {
-		console.log(item.categories[0].productCategories)
+	const method = useForm<IParams>({
+		mode: 'onChange',
+		defaultValues: {
+			search: '',
+			categ: 'chicken_with_vegetables',
+			praise: 0,
+		},
 	})
+	// const { reset } = method
+	console.log(hay);
+	
 	return (
 		<>
 			<Container className='mb-24'>
-				<SortMenu />
-				<div className='downLine mb-32 pb-16'>
+				<FormProvider {...method}>
+					<SortMenu go={hay}/>
+				</FormProvider>
+				<div
+					className='downLine mb-32 pb-16'
+					onClick={() => setHay(!hay)}
+				>
 					<div className='ml-6'>
 						<BigTitle
 							size={44}

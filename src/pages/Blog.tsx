@@ -1,7 +1,7 @@
 'use client'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { IArticles } from '../types/types'
 import { Container } from '../components/Container'
 import { BigTitle } from '../components/BigTitle'
@@ -15,22 +15,49 @@ import { Button } from 'antd'
 
 export const Blog: FC = () => {
 	const [go, setGo] = useState<number>(0)
-	const { data: articles } = useQuery<IArticles[]>({
-		queryKey: [`${ARTICLES}`],
+	const [offset, setOffset] = useState<number>(6)
+
+	const { data: articles, refetch } = useQuery<IArticles[]>({
+		queryKey: [`${ARTICLES}`, offset],
 		queryFn: async () => {
-			return (await axios.get(`http://localhost:3100/${ARTICLES}`)).data
+			return (
+				await axios.get(`http://localhost:3100/${ARTICLES}`, {
+					params: { offset },
+				})
+			).data
 		},
 	})
 	const countPage = () => {
-		if (articles?.length !== undefined)
-			return Math.ceil(articles?.length / 6)
-	}
-
-	const handleArrow = (multiplyNumber: number | null) => {
-		if (multiplyNumber !== null) {
-			setGo(prev => prev + multiplyNumber)
+		if (articles?.length !== undefined) {
+			if (isInt(articles?.length / 6) === true) {
+				return Math.ceil(articles?.length / 6) + 1
+			} else {
+				return Math.ceil(articles?.length / 6)
+			}
 		}
 	}
+
+	const handleArrow = (
+		multiplyNumber: number | null,
+		direction: 'left' | 'right',
+	) => {
+		if (multiplyNumber !== null) {
+			setGo(prev => prev + multiplyNumber)
+			if (direction === 'right') setOffset(prev => prev + 6)
+			if (direction === 'left') setOffset(prev => prev - 6)
+
+			refetch()
+		}
+	}
+	useEffect(() => {
+		const TIME_OUT = setTimeout(() => {
+			const windowSize = Number(window.screen.availHeight) / 2
+			scrollTo({ behavior: 'smooth', top: windowSize })
+		}, 200)
+
+		return () => clearTimeout(TIME_OUT)
+	}, [offset])
+	// console.log(offset)
 
 	return (
 		<Container className='overflow-hidden'>
@@ -64,22 +91,21 @@ export const Blog: FC = () => {
 					disabled={go === 0}
 					htmlType='button'
 					variant='text'
-					onClick={() => handleArrow(1630)}
+					onClick={() => handleArrow(1630, 'left')}
 					className='text-gray-600 cursor-pointer hover:text-gray-500 disabled:text-gray-400 transition-colors duration-100 border-0 p-5'
 				>
 					<FaArrowLeft size={40} />
 				</Button>
 				<Button
-					disabled={-(1630 * countPage()!) / 2 === go}
+					disabled={-(1630 * countPage()!) === go - 1630}
 					htmlType='button'
 					variant='text'
-					onClick={() => handleArrow(-1630)}
+					onClick={() => handleArrow(-1630, 'right')}
 					className='text-gray-600 cursor-pointer hover:text-gray-500 disabled:text-gray-400 transition-colors duration-100 border-0 p-5'
 				>
 					<FaArrowRight size={40} />
 				</Button>
 			</div>
-			<div className='text-red-500 bg-blue-500 p-5'>{45}</div>
 		</Container>
 	)
 }

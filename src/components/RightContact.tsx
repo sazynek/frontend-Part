@@ -4,19 +4,50 @@ import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Controller, Form, useFormContext } from 'react-hook-form'
 import { BigTitle } from './BigTitle'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 
 export const RightContact = () => {
+	const { mutate } = useMutation({
+		mutationKey: ['comments-mutate'],
+		mutationFn: async (data: {
+			username: string
+			email: string
+			content: string
+		}) => {
+			return await axios.post(
+				'comments',
+				{
+					name: data.username,
+					email: data.email,
+					content: data.content,
+				},
+				{ withCredentials: true },
+			)
+		},
+	})
 	const {
 		formState: { errors },
 		control,
 	} = useFormContext()
 
-	const handleForm = ({ data }: { data: unknown }) => {
+	const handleForm = ({
+		data,
+	}: {
+		data: {
+			username: string
+			email: string
+			content: string
+		}
+	}) => {
+		// mutate(data)
 		console.log(data, 'rightContact data')
 		return ''
 	}
 	return (
 		<Form
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-ignore
 			control={control}
 			onSubmit={handleForm}
 		>
@@ -122,7 +153,7 @@ export const RightContact = () => {
 					)}
 				</AnimatePresence>
 				<Controller
-					name='comment'
+					name='content'
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					//@ts-ignore
 					control={control}
@@ -145,7 +176,7 @@ export const RightContact = () => {
 						rounded-xl
 						`,
 								{
-									'mb-6': !errors?.comment,
+									'mb-6': !errors?.content,
 								},
 							)}
 							name={name}
@@ -157,7 +188,7 @@ export const RightContact = () => {
 					)}
 				/>
 				<AnimatePresence initial={true}>
-					{errors?.comment && (
+					{errors?.content && (
 						<motion.div
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
@@ -165,7 +196,7 @@ export const RightContact = () => {
 							key={'error-comment'}
 							className='text-red-700 text-lg  font-thin italic my-2 '
 						>
-							{errors?.comment?.message}
+							{errors?.content?.message}
 						</motion.div>
 					)}
 				</AnimatePresence>
@@ -182,7 +213,7 @@ export const RightContact = () => {
 				py-8 
 				mb-5'
 				>
-					hay
+					Submit
 				</Button>
 			</div>
 		</Form>

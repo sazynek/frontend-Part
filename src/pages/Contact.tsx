@@ -13,7 +13,7 @@ export const Contact = () => {
 		defaultValues: {
 			username: '',
 			email: '',
-			comment: '',
+			content: '',
 		},
 	})
     const {clearErrors}=method

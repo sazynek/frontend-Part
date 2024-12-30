@@ -30,7 +30,5 @@ export const schema = zod.object({
 		.string({ message: "it's require field" })
 		.email({ message: 'your email must be valid' })
 		.trim(),
-	comment: zod
-		.string({ message: "it's require field" })
-		.trim(),
+	content: zod.string({ message: "it's require field" }).trim(),
 })

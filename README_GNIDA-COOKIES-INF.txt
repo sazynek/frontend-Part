@@ -1,0 +1,1 @@
+delete httpOnly or set httpOnly:false

@@ -2,21 +2,58 @@
 import { Button, Input } from 'antd'
 import { Controller, Form } from 'react-hook-form'
 import { ISign } from '../types/types'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import clsx from 'clsx'
 import Paragraph from 'antd/es/typography/Paragraph'
 import Link from 'next/link'
 import './componentStyle/componentStyle.scss'
 import Password from 'antd/es/input/Password'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+import { query } from '../providers/Providers'
+import { useCookies } from 'react-cookie'
+const jsonPlaceFolder = 'https://jsonplaceholder.typicode.com/users'
 export const Sign: FC<ISign> = ({
 	className,
 	btnTitle,
 	LogOrSignup,
 	...rest
 }) => {
-	const handleForm = (data?: unknown) => {
-		console.log(data ?? '')
+	const { mutate, data } = useMutation({
+		mutationKey: ['Auth'],
+		mutationFn: async data => {
+			const authFinish = btnTitle === 'sign in' ? '/login' : '/register'
+			return await axios.post(
+				`http://localhost:3100/auth${authFinish}`,
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				//@ts-ignore
+				{ ...data },
+				{ withCredentials: true },
+			)
+		},
+		onSuccess: () => {
+			query.invalidateQueries()
+		},
+	})
+	const [cookies, setCookies] = useCookies(['acc_token', 'rf_token'])
+	useEffect(() => {
+		console.log("it's rf_token:", cookies['rf_token'])
+
+		setCookies('acc_token', data?.data?.acc_token)
+		// setCookies('rf_token')
+	}, [data?.data?.acc_token, setCookies])
+	const handleForm = ({
+		data: { email, password, username: name },
+	}: {
+		data: { username?: string; email: string; password: string }
+	}) => {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		//@ts-ignore
+		if (name !== '') mutate({ name, password, email })
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		//@ts-ignore
+		else mutate({ password, email })
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		//@ts-ignore
 		rest.reset()

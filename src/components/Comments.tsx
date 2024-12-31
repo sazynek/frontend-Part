@@ -7,7 +7,6 @@ import { Flex, Rate } from 'antd'
 import './componentStyle/componentStyle.scss'
 import Image from 'next/image'
 import Paragraph from 'antd/es/typography/Paragraph'
-import { useInView } from 'react-intersection-observer'
 import clsx from 'clsx'
 import { useState } from 'react'
 
@@ -19,9 +18,7 @@ export const Comments = () => {
 			return (await axios.get('/comments')).data
 		},
 	})
-	const { inView, ref } = useInView({})
-
-	const func = e => {
+	const func = (e: { target: { scrollLeft: number } }) => {
 		setMove(Math.round(e.target.scrollLeft / 500))
 		// console.log()
 	}
@@ -47,7 +44,7 @@ export const Comments = () => {
 
 						return (
 							<Flex
-								ref={ref}
+								
 								id={`observe${item.id}`}
 								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 								//@ts-ignore

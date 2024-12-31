@@ -40,8 +40,8 @@ export const RightContact = () => {
 			content: string
 		}
 	}) => {
-		// mutate(data)
-		console.log(data, 'rightContact data')
+		mutate(data)
+		// console.log(data, 'rightContact data')
 		return ''
 	}
 	return (

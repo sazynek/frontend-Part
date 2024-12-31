@@ -22,10 +22,10 @@ export const Comments = () => {
 		setMove(Math.round(e.target.scrollLeft / 500))
 		// console.log()
 	}
-	console.log(move)
+	// console.log(move)
 
 	return (
-		<div className='mb-32 overflow-hidden '>
+		<div className='mb-32 overflow-hidden pb-[500px]'>
 			<BigTitle
 				size={44}
 				title='Customer say'
@@ -38,13 +38,12 @@ export const Comments = () => {
 				className='scrollStyles '
 				onScroll={func}
 			>
-				<Flex className=' justify-between gap-32  ml-80 my-20'>
+				<Flex className=' justify-between gap-32  ml-80 my-20  '>
 					{data?.map((item, idx) => {
 						// console.log(idx);
 
 						return (
 							<Flex
-								
 								id={`observe${item.id}`}
 								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 								//@ts-ignore

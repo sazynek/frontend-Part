@@ -13,7 +13,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { query } from '../providers/Providers'
 import { useCookies } from 'react-cookie'
-const jsonPlaceFolder = 'https://jsonplaceholder.typicode.com/users'
+// const jsonPlaceFolder = 'https://jsonplaceholder.typicode.com/users'
 export const Sign: FC<ISign> = ({
 	className,
 	btnTitle,
@@ -36,9 +36,9 @@ export const Sign: FC<ISign> = ({
 			query.invalidateQueries()
 		},
 	})
-	const [cookies, setCookies] = useCookies(['acc_token', 'rf_token'])
+	const [, setCookies] = useCookies(['acc_token', 'rf_token'])
 	useEffect(() => {
-		console.log("it's rf_token:", cookies['rf_token'])
+		// console.log("it's rf_token:", cookies['rf_token'])
 
 		setCookies('acc_token', data?.data?.acc_token)
 		// setCookies('rf_token')
@@ -58,6 +58,7 @@ export const Sign: FC<ISign> = ({
 		//@ts-ignore
 		rest.reset()
 	}
+
 	return (
 		<Form
 			className={clsx(className, 'max-w-[350px] relative')}

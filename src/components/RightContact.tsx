@@ -18,8 +18,8 @@ export const RightContact = () => {
 			return await axios.post(
 				'comments',
 				{
-					name: data.username,
-					email: data.email,
+					// name: data.username,
+					// email: data.email,
 					content: data.content,
 				},
 				{ withCredentials: true },

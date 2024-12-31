@@ -3,6 +3,7 @@ import { LoginProps } from '../../types/types'
 import { Sign } from '../../components/Sign'
 import { BigTitle } from '../../components/BigTitle'
 
+
 export const LoginComponent: FC<LoginProps> = ({
 	className,
 	title,
@@ -10,6 +11,7 @@ export const LoginComponent: FC<LoginProps> = ({
 	LogOrSignup,
 	...rest
 }) => {
+
 	return (
 		<div className={className}>
 			<BigTitle

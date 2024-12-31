@@ -7,15 +7,18 @@ import { RightSwipeComponent } from '../components/RightSwipeComponent'
 import { ILogin } from '../types/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { schemaFunc } from '../components/schema/zodSchema'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
 
 export const Login: FC<ILogin> = ({ LogOrSignup, btnTitle, title }) => {
+	let a = false
 	const {
 		control,
 		reset,
 		formState: { errors },
 		clearErrors,
 	} = useForm({
-		resolver: zodResolver(schemaFunc(LogOrSignup==='login' ? 1 : 0)),
+		resolver: zodResolver(schemaFunc(LogOrSignup === 'login' ? 1 : 0)),
 		mode: 'onChange',
 		defaultValues: {
 			username: '',
@@ -23,7 +26,31 @@ export const Login: FC<ILogin> = ({ LogOrSignup, btnTitle, title }) => {
 			password: '',
 		},
 	})
-
+	const [, setCookies] = useCookies(['acc_token'])
+	axios.interceptors.response.use(
+		config => config,
+		async error => {
+			if (
+				error.status === 401 &&
+				error.config &&
+				error.response.data.message !== 'Unauthorized' &&
+				!a
+			) {
+				a = true
+				try {
+					const { data } = await axios.post(
+						'http://localhost:3100/auth/refresh_token',
+						{},
+						{ withCredentials: true },
+					)
+					setCookies('acc_token', data?.acc_token)
+				} catch (e) {
+					console.log(`this is fail ${e}`)
+				}
+			}
+			throw error
+		},
+	)
 	return (
 		<main onClick={() => clearErrors()}>
 			<Row gutter={0}>

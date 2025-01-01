@@ -4,6 +4,7 @@ import './globals.scss'
 import { ReactNode } from 'react'
 import { Providers } from './../providers/Providers'
 import axios from 'axios'
+// import { useCookies } from 'react-cookie'
 
 const montserrat = Montserrat({
 	subsets: ['latin'],

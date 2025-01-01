@@ -4,7 +4,8 @@ import { FC } from 'react'
 import { Container } from '../components/Container'
 import '../app/support.scss'
 import Link from 'next/link'
-import { DoubleBtn } from '../components/DoubleBtn'
+import { LogOutBtn } from '../components/LogOutBtn'
+
 export const FooterHeaderLinks = [
 	{ title: 'Menu', link: 'menu' },
 	{ title: 'Blog', link: 'blog' },
@@ -56,11 +57,7 @@ export const Header: FC = () => {
 								))}
 							</Flex>
 						</Flex>
-						<DoubleBtn
-							LogReg={true}
-							firstBtn='Login'
-							secondBtn='Sign up'
-						/>
+						<LogOutBtn />
 					</Flex>
 				</nav>
 			</Container>

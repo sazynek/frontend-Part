@@ -13,6 +13,8 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { query } from '../providers/Providers'
 import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/navigation'
+
 // const jsonPlaceFolder = 'https://jsonplaceholder.typicode.com/users'
 export const Sign: FC<ISign> = ({
 	className,
@@ -20,6 +22,8 @@ export const Sign: FC<ISign> = ({
 	LogOrSignup,
 	...rest
 }) => {
+	// const [routeControl, setRouteControl] = useState()
+	const route = useRouter()
 	const { mutate, data } = useMutation({
 		mutationKey: ['Auth'],
 		mutationFn: async data => {
@@ -38,10 +42,7 @@ export const Sign: FC<ISign> = ({
 	})
 	const [, setCookies] = useCookies(['acc_token', 'rf_token'])
 	useEffect(() => {
-		// console.log("it's rf_token:", cookies['rf_token'])
-
 		setCookies('acc_token', data?.data?.acc_token)
-		// setCookies('rf_token')
 	}, [data?.data?.acc_token, setCookies])
 	const handleForm = ({
 		data: { email, password, username: name },
@@ -57,6 +58,11 @@ export const Sign: FC<ISign> = ({
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		//@ts-ignore
 		rest.reset()
+	}
+	if (data !== undefined) {
+		setTimeout(() => {
+			route.replace('home')
+		}, 0)
 	}
 
 	return (

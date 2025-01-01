@@ -4,10 +4,13 @@ import { IClassname } from '../types/types'
 import clsx from 'clsx'
 import Link from 'next/link'
 
+
 export const AuthHeader: FC<IClassname> = ({ className }) => {
+	// const [cookies] = useCookies(['acc_token'])
+
 	return (
 		<div className='relative'>
-			<Link href={'/'}>
+			<Link href={''}>
 				<Image
 					alt='eatly'
 					src={'/Logo.png'}

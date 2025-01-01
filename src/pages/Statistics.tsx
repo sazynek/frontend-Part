@@ -107,7 +107,7 @@ export const Statistics = () => {
 		)
 		return a
 	}
-	console.log(stat3())
+	// console.log(stat3())
 
 	return (
 		<Container className='mx-auto w-full flex-col flex justify-center h-1/2 gap-32 mb-20'>

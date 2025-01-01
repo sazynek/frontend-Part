@@ -19,13 +19,14 @@ export const Comments = () => {
 		},
 	})
 	const func = (e: { target: { scrollLeft: number } }) => {
-		setMove(Math.round(e.target.scrollLeft / 500))
+		if (data?.length)
+			setMove(Math.round(e.target.scrollLeft / (500 + data?.length)))
 		// console.log()
 	}
 	// console.log(move)
 
 	return (
-		<div className='mb-32 overflow-hidden pb-[500px]'>
+		<div className='mb-32 overflow-hidden '>
 			<BigTitle
 				size={44}
 				title='Customer say'

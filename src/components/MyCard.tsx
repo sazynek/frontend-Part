@@ -15,7 +15,9 @@ import { FaPlus } from 'react-icons/fa6'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { query } from '../providers/Providers'
-
+import { toast } from 'react-toastify'
+import { FaCheck } from 'react-icons/fa'
+import { TiDeleteOutline } from 'react-icons/ti'
 export const MyCard: FC<IMyCard> = ({
 	cost,
 	famous,
@@ -67,11 +69,37 @@ export const MyCard: FC<IMyCard> = ({
 	// const { deleteCartItem } = useCart(select => select)
 	const handleAddCartItem = () => {
 		mutation.mutate()
+		toast('you food was be add to cart', {
+			className: 'bg-green-200 bg-opacity-90',
+			autoClose: 2000,
+			closeOnClick: true,
+			closeButton() {
+				return <FaCheck className='self-center ml-16 mr-0 text-green-400 size-6' />
+			},
+			progressClassName: 'bg-red-500 text-green-500 h-10',
+			position: 'bottom-left',
+			hideProgressBar: true,
+		})
 	}
 
 	const handleDeleteCartItem = () => {
 		// console.log(id)
-		if (id !== '') mutation2.mutate(id)
+		if (id !== '') {
+			mutation2.mutate(id)
+			toast('you food was be deleted from cart', {
+				className: 'bg-red-200 bg-opacity-90',
+				autoClose: 2000,
+				closeButton() {
+					return (
+						<TiDeleteOutline className='self-center ml-2  text-red-400 size-10' />
+					)
+				},
+				closeOnClick: true,
+				progressClassName: 'bg-red-500 text-green-500 h-10',
+				position: 'bottom-left',
+				hideProgressBar: true,
+			})
+		}
 	}
 
 	//

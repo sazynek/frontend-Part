@@ -2,6 +2,8 @@ import { FC } from 'react'
 import { LoginProps } from '../../types/types'
 import { Sign } from '../../components/Sign'
 import { BigTitle } from '../../components/BigTitle'
+import { GoogleSign } from '../../components/GoogleSign'
+import clsx from 'clsx'
 
 
 export const LoginComponent: FC<LoginProps> = ({
@@ -13,13 +15,15 @@ export const LoginComponent: FC<LoginProps> = ({
 }) => {
 
 	return (
-		<div className={className}>
+		<div className={clsx(className)}>
 			<BigTitle
+			className='-mb-8'
 				center='center'
 				size={42}
 				title={title}
 				wordSelect='eatly'
 			/>
+			<GoogleSign/>
 			<div className=''>
 				<Sign
 					control={rest?.control}

@@ -6,9 +6,10 @@ import { Controller, Form, useFormContext } from 'react-hook-form'
 import { BigTitle } from './BigTitle'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
+import { useEffect } from 'react'
 
 export const RightContact = () => {
-	const { mutate } = useMutation({
+	const { mutate, isSuccess } = useMutation({
 		mutationKey: ['comments-mutate'],
 		mutationFn: async (data: {
 			username: string
@@ -20,7 +21,7 @@ export const RightContact = () => {
 				{
 					// name: data.username,
 					// email: data.email,
-					content: data.content,
+					content: data?.content,
 				},
 				{ withCredentials: true },
 			)
@@ -29,6 +30,7 @@ export const RightContact = () => {
 	const {
 		formState: { errors },
 		control,
+		reset,
 	} = useFormContext()
 
 	const handleForm = ({
@@ -42,8 +44,12 @@ export const RightContact = () => {
 	}) => {
 		mutate(data)
 		// console.log(data, 'rightContact data')
+
 		return ''
 	}
+	useEffect(() => {
+		if (isSuccess) reset()
+	}, [isSuccess])
 	return (
 		<Form
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment

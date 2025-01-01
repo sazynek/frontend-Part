@@ -6,7 +6,10 @@ import {
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ConfigProvider, ConfigProviderProps, GetProp } from 'antd'
-import { FC, PropsWithChildren } from 'react'
+import axios from 'axios'
+import { FC, PropsWithChildren, useEffect } from 'react'
+import { useCookies } from 'react-cookie'
+import { ToastContainer } from 'react-toastify'
 type WaveConfig = GetProp<ConfigProviderProps, 'wave'>
 
 // Prepare effect holder
@@ -123,6 +126,61 @@ const showShakeEffect: WaveConfig['showEffect'] = (node, { component }) => {
 export const query = new QueryClient()
 
 export const Providers: FC<PropsWithChildren> = ({ children }) => {
+	const [cookies, setCookies] = useCookies(['acc_token'])
+	axios.interceptors.response.use(
+		config => {
+			// console.log('config work')
+
+			return config
+		},
+		async error => {
+			console.log('error config work', error.response.data.message)
+			error.config._IsTrue = false
+			if (
+				error.status === 401 &&
+				error.config &&
+				error.response.data.message === 'Unauthorized' &&
+				!error.config._IsTrue
+			) {
+				console.log('error config  inner work')
+				error.config._IsTrue = true
+				// a = true
+				try {
+					const { data } = await axios.post(
+						'http://localhost:3100/auth/refresh_token',
+						{},
+						{ withCredentials: true },
+					)
+					console.log('error message')
+
+					setCookies('acc_token', data?.acc_token)
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				} catch (e) {
+					console.log(`this is fail`)
+				}
+			}
+			// throw error
+		},
+	)
+	useEffect(() => {
+		const checkRf_token = async () => {
+			try {
+				const { data } = await axios.post(
+					'http://localhost:3100/auth/refresh_token',
+					{},
+					{ withCredentials: true },
+				)
+				setCookies('acc_token', data.acc_token)
+
+				// console.log(data, 'this is data from boss-layout')
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			} catch (e) {
+				// console.log(`you can\'t have rf_token | ${e}`)
+			}
+		}
+		checkRf_token()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [cookies.acc_token])
 	return (
 		<StyleProvider
 			layer
@@ -139,7 +197,10 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 				wave={{ showEffect: showShakeEffect }}
 			>
 				<QueryClientProvider client={query}>
-					<AntdRegistry layer>{children}</AntdRegistry>
+					<AntdRegistry layer>
+						<ToastContainer progressClassName={'bg-red-500'} />
+						{children}
+					</AntdRegistry>
 				</QueryClientProvider>
 			</ConfigProvider>
 		</StyleProvider>

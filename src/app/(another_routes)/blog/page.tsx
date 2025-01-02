@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { Blog } from '../../../pages/Blog'
 import { cookies } from 'next/headers'
 
+
 export default async function BlogPage() {
 	const a = await cookies()
 	const b = a.get('acc_token')
@@ -9,12 +10,11 @@ export default async function BlogPage() {
 	// console.log(b?.value)
 	if (b?.value !== 'undefined' && b?.value.length) {
 		return (
-			<div className=''>
+			<div>
 				<Blog />
 			</div>
 		)
 	} else {
-		
 		redirect('login')
 	}
 }

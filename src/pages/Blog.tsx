@@ -10,8 +10,10 @@ import { FaArrowRight } from 'react-icons/fa'
 import { FaArrowLeft } from 'react-icons/fa'
 import clsx from 'clsx'
 import { isInt } from '../globalFunc/globalFunc'
-import { ArticleCard } from '../components/ArticleCard'
+
 import { Button } from 'antd'
+
+import { ArticleCardLazy } from '../components/ArticleCardLazy'
 
 export const Blog: FC = () => {
 	const [go, setGo] = useState<number>(0)
@@ -74,8 +76,8 @@ export const Blog: FC = () => {
 			>
 				{articles?.map((item, idx) => {
 					return (
-						<ArticleCard
-							key={idx}
+						<ArticleCardLazy
+							key={item.id}
 							href='/'
 							className={clsx(
 								`max-w-[400px] max-h-[400px] h-[400px] w-[400px]`,

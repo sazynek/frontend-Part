@@ -28,7 +28,7 @@ export const SortMenu: FC<{ go: boolean }> = ({ go }) => {
 			).data
 		},
 	})
-	console.log(SData)
+	// console.log(SData)
 
 	return (
 		<div className='mb-52'>

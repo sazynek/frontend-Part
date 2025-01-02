@@ -60,7 +60,7 @@ export const Restaurant = () => {
 								alt='food'
 								src={'/' + item.src}
 								className='h-full  min-w-full p-0 m-0'
-								sizes='100vh'
+							
 								width={600}
 								height={600}
 							/>

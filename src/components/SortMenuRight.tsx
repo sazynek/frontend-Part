@@ -8,6 +8,7 @@ import { MySwiper } from './MySwiper'
 import { FC, useState } from 'react'
 import { ISortDataProps } from '../types/types'
 import { Form } from 'react-hook-form'
+import Paragraph from 'antd/es/typography/Paragraph'
 const food = [
 	{ id: uuid(), title: 'Meat', src: 'Hotdog.svg', category: 'chicken' },
 	{
@@ -147,10 +148,13 @@ export const SortMenuRight: FC<ISortDataProps> = ({ setSData }) => {
 					/>
 					<button
 						type='submit'
-						className='w-full text-center bg-primary  text-white text-lg rounded-xl py-4 flex justify-center align-middle hover:bg-opacity-90 transition-all duration-50 active:bg-purple-500 active:bg-opacity-70'
+						className='w-full text-center bg-primary  text-white text-lg rounded-xl py-4 flex justify-center align-middle hover:bg-opacity-90 transition-all duration-50 active:bg-purple-500 active:bg-opacity-70 mb-4'
 					>
 						Apply
 					</button>
+					<Paragraph className='text-gray-500  text-opacity-70 italic text-xs text-center flex justify-center align-middle h-full w-full'>
+						Don&#8216;t forget to apply your changes.
+					</Paragraph>
 				</Card>
 			</Form>
 		</div>

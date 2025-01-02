@@ -2,7 +2,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { IParams, IResponse } from '../types/types'
-import { MyCard } from '../components/MyCard'
 import { BigTitle } from '../components/BigTitle'
 import { Container } from '../components/Container'
 import { query } from '../providers/Providers'
@@ -10,9 +9,10 @@ import { Accord } from '../components/Accord'
 import { SortMenu } from '../shared/SortMenu'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { MyCardLazy } from '../components/MyCardLazy'
 
 export const Menu = () => {
-	const [hay,setHay]=useState<boolean>(false)
+	const [hay, setHay] = useState<boolean>(false)
 	const { data: products } = useQuery<IResponse[]>({
 		queryKey: ['products'],
 		queryFn: async () =>
@@ -25,7 +25,6 @@ export const Menu = () => {
 			const { statusProductId, statusProduct } = products?.find(
 				item => item.id === index,
 			)!
-
 			return axios.put(
 				`http://localhost:3100/status-product/${statusProductId}`,
 				{
@@ -50,13 +49,13 @@ export const Menu = () => {
 		},
 	})
 	// const { reset } = method
-	console.log(hay);
-	
+	console.log(hay)
+
 	return (
 		<>
 			<Container className='mb-24'>
 				<FormProvider {...method}>
-					<SortMenu go={hay}/>
+					<SortMenu go={hay} />
 				</FormProvider>
 				<div
 					className='downLine mb-32 pb-16'
@@ -77,25 +76,19 @@ export const Menu = () => {
 								'chicken'
 							)
 								return (
-									<div
-										className=''
+									<MyCardLazy
 										key={item.id}
-									>
-										<MyCard
-											onClick={userLikeThis}
-											cost={item.praise.cost}
-											famous={item.statusProduct.famous}
-											id={item.id}
-											imgUrl={item.imgUrl}
-											rating={item.statusProduct.rating}
-											time={item.time}
-											title={item.title}
-											alt='card'
-											userLike={
-												item.statusProduct.userLike
-											}
-										/>
-									</div>
+										onClick={userLikeThis}
+										cost={item.praise.cost}
+										famous={item.statusProduct.famous}
+										id={item.id}
+										imgUrl={item.imgUrl}
+										rating={item.statusProduct.rating}
+										time={item.time}
+										title={item.title}
+										alt='card'
+										userLike={item.statusProduct.userLike}
+									/>
 								)
 						})}
 					</div>
@@ -116,25 +109,19 @@ export const Menu = () => {
 								'chicken_with_vegetables'
 							)
 								return (
-									<div
-										className=''
+									<MyCardLazy
 										key={item.id}
-									>
-										<MyCard
-											onClick={userLikeThis}
-											cost={item.praise.cost}
-											famous={item.statusProduct.famous}
-											id={item.id}
-											imgUrl={item.imgUrl}
-											rating={item.statusProduct.rating}
-											time={item.time}
-											title={item.title}
-											alt='card'
-											userLike={
-												item.statusProduct.userLike
-											}
-										/>
-									</div>
+										onClick={userLikeThis}
+										cost={item.praise.cost}
+										famous={item.statusProduct.famous}
+										id={item.id}
+										imgUrl={item.imgUrl}
+										rating={item.statusProduct.rating}
+										time={item.time}
+										title={item.title}
+										alt='card'
+										userLike={item.statusProduct.userLike}
+									/>
 								)
 						})}
 					</div>

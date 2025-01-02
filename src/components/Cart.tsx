@@ -1,6 +1,5 @@
 'use client'
 import { Drawer, Space } from 'antd'
-import { MyCard } from './MyCard'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { IMyCard } from '../types/types'
@@ -11,6 +10,7 @@ import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { formatCurrency } from '../globalFunc/globalFunc'
 import { useCookies } from 'react-cookie'
+import { MyCardLazy } from './MyCardLazy'
 
 export const Cart = () => {
 	const [cookies] = useCookies(['acc_token'])
@@ -87,7 +87,7 @@ export const Cart = () => {
 									className='mt-10 first:mt-0'
 									key={item.id}
 								>
-									<MyCard
+									<MyCardLazy
 										cartItemId={item.cartItemId ?? ''}
 										cost={item?.cost}
 										famous={item.famous}
@@ -109,6 +109,6 @@ export const Cart = () => {
 			</div>
 		)
 	} else {
-		return<></>
+		return <></>
 	}
 }

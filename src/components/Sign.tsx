@@ -14,6 +14,8 @@ import axios from 'axios'
 import { query } from '../providers/Providers'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
+import { FaCheck } from 'react-icons/fa'
 
 // const jsonPlaceFolder = 'https://jsonplaceholder.typicode.com/users'
 export const Sign: FC<ISign> = ({
@@ -37,6 +39,19 @@ export const Sign: FC<ISign> = ({
 			)
 		},
 		onSuccess: () => {
+			toast(`you ${btnTitle} in account, wait`, {
+				className: 'bg-green-200 bg-opacity-90',
+				autoClose: 2000,
+				closeOnClick: true,
+				closeButton() {
+					return (
+						<FaCheck className='self-center ml-16 mr-0 text-green-400 size-6' />
+					)
+				},
+				progressClassName: 'bg-red-500 text-green-500 h-10',
+				position: 'bottom-left',
+				hideProgressBar: true,
+			})
 			query.invalidateQueries()
 		},
 	})
@@ -59,6 +74,7 @@ export const Sign: FC<ISign> = ({
 		//@ts-ignore
 		rest.reset()
 	}
+
 	if (data !== undefined) {
 		setTimeout(() => {
 			route.replace('home')

@@ -1,11 +1,11 @@
 'use client'
 import { BigTitle } from '../../components/BigTitle'
 import { Container } from '../../components/Container'
-import { MyCard } from '../../components/MyCard'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 // import { query } from '../../providers/Providers'
 import { IResponse } from '../../types/types'
+import { MyCardLazy } from '../../components/MyCardLazy'
 
 export const Dishes = () => {
 	const { data: products } = useQuery<IResponse[]>({
@@ -32,7 +32,7 @@ export const Dishes = () => {
 								className=''
 								key={item.id}
 							>
-								<MyCard
+								<MyCardLazy
 									cost={item.praise.cost}
 									famous={item.statusProduct.famous}
 									id={item.id}

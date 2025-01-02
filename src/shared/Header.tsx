@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { Container } from '../components/Container'
 import '../app/support.scss'
 import Link from 'next/link'
-import { LogOutBtn } from '../components/LogOutBtn'
+import { LogOutBtnLazy } from '../components/LogOutBtnLazy'
 
 export const FooterHeaderLinks = [
 	{ title: 'Menu', link: 'menu' },
@@ -12,6 +12,7 @@ export const FooterHeaderLinks = [
 	{ title: 'Contact', link: 'contact' },
 	{ title: 'Statistics', link: 'statistics' },
 ]
+
 export const Header: FC = () => {
 	return (
 		<header className='p-5 pt-10 mb-24 '>
@@ -57,7 +58,7 @@ export const Header: FC = () => {
 								))}
 							</Flex>
 						</Flex>
-						<LogOutBtn />
+						<LogOutBtnLazy />
 					</Flex>
 				</nav>
 			</Container>

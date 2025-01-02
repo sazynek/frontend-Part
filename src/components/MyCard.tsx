@@ -18,6 +18,7 @@ import { query } from '../providers/Providers'
 import { toast } from 'react-toastify'
 import { FaCheck } from 'react-icons/fa'
 import { TiDeleteOutline } from 'react-icons/ti'
+import { ClipLoader } from 'react-spinners'
 export const MyCard: FC<IMyCard> = ({
 	cost,
 	famous,
@@ -74,7 +75,9 @@ export const MyCard: FC<IMyCard> = ({
 			autoClose: 2000,
 			closeOnClick: true,
 			closeButton() {
-				return <FaCheck className='self-center ml-16 mr-0 text-green-400 size-6' />
+				return (
+					<FaCheck className='self-center ml-16 mr-0 text-green-400 size-6' />
+				)
 			},
 			progressClassName: 'bg-red-500 text-green-500 h-10',
 			position: 'bottom-left',
@@ -196,42 +199,50 @@ export const MyCard: FC<IMyCard> = ({
 				/>
 				<Paragraph>{rating}</Paragraph>
 			</Flex>
-			<Flex justify='space-between'>
-				<Text className='my-0 py-0 leading-3 text-black text-lg font-bold self-center'>
-					${cost}
-					<span className='text-gray-500 text-sm font-bold'>.99</span>
-				</Text>
-				{!isCart && (
-					<button
-						onClick={handleAddCartItem}
-						type='button'
-						className='rounded-lg p-2 
+			{mutation.isPending || mutation2.isPending ? (
+				<div className='flex justify-end relative '>
+					<ClipLoader className='self-center' />
+				</div>
+			) : (
+				<Flex justify='space-between'>
+					<Text className='my-0 py-0 leading-3 text-black text-lg font-bold self-center'>
+						${cost}
+						<span className='text-gray-500 text-sm font-bold'>
+							.99
+						</span>
+					</Text>
+					{!isCart && (
+						<button
+							onClick={handleAddCartItem}
+							type='button'
+							className='rounded-lg p-2 
 					bg-gray-800 
 					text-white 
 					hover:bg-opacity-30 
 					hover:text-gray-800 
 					transition-colors 
 					duration-150'
-					>
-						<FaPlus className='text-xl' />
-					</button>
-				)}
-				{isCart && (
-					<button
-						onClick={handleDeleteCartItem}
-						type='button'
-						className='rounded-lg p-2 
+						>
+							<FaPlus className='text-xl' />
+						</button>
+					)}
+					{isCart && (
+						<button
+							onClick={handleDeleteCartItem}
+							type='button'
+							className='rounded-lg p-2 
 					bg-gray-800 
 					text-white 
 					hover:bg-opacity-30 
 					hover:text-gray-800 
 					transition-colors 
 					duration-150'
-					>
-						<FaMinus className='text-xl' />
-					</button>
-				)}
-			</Flex>
+						>
+							<FaMinus className='text-xl' />
+						</button>
+					)}
+				</Flex>
+			)}
 		</Card>
 	)
 }

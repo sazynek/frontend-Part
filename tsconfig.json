@@ -27,7 +27,10 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"src/shared/first/Stat.tsx"
-, "src/app/middleware.js"	],
+		"src/shared/first/Stat.tsx",
+		"src/app/middleware.js",
+		"src/app/(another_routes)/home/[id]/page.tsx",
+		"src/app/(another_routes)/work/[...id]/page.tsx"
+	],
 	"exclude": ["node_modules"]
 }

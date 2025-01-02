@@ -136,3 +136,12 @@ export interface IComments {
 	updatedAt: string
 	userId: string
 }
+
+export interface ICommentsComponent {
+	item: {
+		id: string
+		content:string
+	}
+	idx: number
+	move: number
+}

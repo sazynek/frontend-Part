@@ -25,23 +25,26 @@ export const Dishes = () => {
 				/>
 			</div>
 			<div className='grid grid-cols-5 gap-5'>
-				{products?.map((item, index) => {
+				{products?.map((item, indexNumber) => {
+					// console.log(products ?? '');
+
 					return (
-						index > 4 && (
+						indexNumber > 5 && (
 							<div
 								className=''
 								key={item.id}
 							>
 								<MyCardLazy
-									cost={item.praise.cost}
-									famous={item.statusProduct.famous}
-									id={item.id}
-									imgUrl={item.imgUrl}
-									rating={item.statusProduct.rating}
-									time={item.time}
-									title={item.title}
+									indexNumber={indexNumber}
+									cost={item?.praise?.cost ?? ''}
+									famous={item?.statusProduct?.famous ?? ''}
+									id={item?.id ?? ''}
+									imgUrl={item?.imgUrl ?? ''}
+									rating={item?.statusProduct?.rating ?? ''}
+									time={item?.time ?? ''}
+									title={item?.title ?? ''}
 									alt='card'
-									userLike={item.statusProduct.userLike}
+									userLike={item?.statusProduct?.userLike}
 								/>
 							</div>
 						)

@@ -7,8 +7,14 @@ import { BigTitle } from './BigTitle'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useEffect } from 'react'
+import { FaCheck } from 'react-icons/fa'
+import { toast } from 'react-toastify'
+import { useCookies } from 'react-cookie'
+import { TiDeleteOutline } from 'react-icons/ti'
+import { query } from '../providers/Providers'
 
 export const RightContact = () => {
+	const [, setCookies] = useCookies()
 	const { mutate, isSuccess } = useMutation({
 		mutationKey: ['comments-mutate'],
 		mutationFn: async (data: {
@@ -16,15 +22,53 @@ export const RightContact = () => {
 			email: string
 			content: string
 		}) => {
-			return await axios.post(
-				'comments',
-				{
-					// name: data.username,
-					// email: data.email,
-					content: data?.content,
+			try {
+				return await axios.post(
+					'http://localhost:3100/comments',
+					{
+						// name: data.username,
+						// email: data.email,
+						content: data?.content,
+					},
+					{ withCredentials: true },
+				)
+			} catch (e) {
+				console.log(`error ${e}`)
+
+				throw new Error(`comment is not publish. Error: ${e}`)
+			}
+		},
+		onSuccess: () => {
+			toast('you comment was be add', {
+				className: 'bg-green-200 bg-opacity-90',
+				autoClose: 2000,
+				closeOnClick: true,
+				closeButton() {
+					return (
+						<FaCheck className='self-center ml-16 mr-0 text-green-400 size-6' />
+					)
 				},
-				{ withCredentials: true },
-			)
+				progressClassName: 'bg-red-500 text-green-500 h-10',
+				position: 'bottom-left',
+				hideProgressBar: true,
+			})
+			query.invalidateQueries()
+		},
+		onError: () => {
+			toast('you comment was not be add', {
+				className: 'bg-red-200 bg-opacity-90',
+				autoClose: 2000,
+				closeButton() {
+					return (
+						<TiDeleteOutline className='self-center ml-2  text-red-400 size-10' />
+					)
+				},
+				closeOnClick: true,
+				progressClassName: 'bg-red-500 text-green-500 h-10',
+				position: 'bottom-left',
+				hideProgressBar: true,
+			})
+			query.invalidateQueries()
 		},
 	})
 	const {
@@ -47,6 +91,7 @@ export const RightContact = () => {
 
 		return ''
 	}
+
 	useEffect(() => {
 		if (isSuccess) reset()
 	}, [isSuccess])

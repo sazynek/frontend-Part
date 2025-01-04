@@ -1,9 +1,13 @@
 'use client'
+
 import dynamic from 'next/dynamic'
 import { ClipLoader } from 'react-spinners'
 
-export const CommentsComponentLazy = dynamic(
-	() => import('./CommentsComponent').then(some => some.CommentsComponent),
+export const CommentsInnerComponentLazy = dynamic(
+	() =>
+		import('./CommentsInnerComponent').then(
+			some => some.CommentsInnerComponent,
+		),
 	{
 		loading: () => (
 			<div className='flex justify-center relative right-20'>

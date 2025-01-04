@@ -27,8 +27,8 @@ export const SortMenuLeft: FC<ISortDataProps> = ({ setSData, data, SData }) => {
 		index: string,
 		indexNumber: number,
 	) => {
-		console.log(`menu/${indexNumber}?id=${index}`)
-		// router.push('menu/')
+		// console.log(`menu/${indexNumber}?id=${index}`)
+		router.push(`menu/${indexNumber}?id=${index}`)
 		setMdl(true)
 	}
 
@@ -113,7 +113,7 @@ export const SortMenuLeft: FC<ISortDataProps> = ({ setSData, data, SData }) => {
 										key={item?.id ?? indexNumber}
 									>
 										{item?.title ?? 'no item'}
-										{item?.categories[0].productCategories}
+										
 									</div>
 								)
 							})}

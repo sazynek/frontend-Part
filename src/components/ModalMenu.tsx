@@ -55,7 +55,7 @@ export const ModalMenu: FC<{
 		setModal(false)
 		router.back()
 	}
-	console.log(products)
+	// console.log(products)
 
 	return isModal ? (
 		<Modal
@@ -67,10 +67,11 @@ export const ModalMenu: FC<{
 			<div>
 				<Paragraph>Product: {param}</Paragraph>
 				{products?.map((item, indexNumber) => {
-					console.log(item)
+					// console.log(item)
 
 					return (
 						<MyCardLazy
+							className='flex justify-center w-[45%] mx-auto'
 							isModal={true}
 							indexNumber={indexNumber ?? ''}
 							key={'modal' + item?.id || ''}
@@ -90,15 +91,15 @@ export const ModalMenu: FC<{
 			</div>
 		</Modal>
 	) : (
-		<Container>
-			<div className='relative mb-24 '>
-				<Paragraph className='text-center font-bold absolute left-80 z-20 '>
+		<Container className='pb-24'>
+			<div className='relative mb-24 w-1/2 mx-auto'>
+				<Paragraph className='text-center font-bold absolute left-40 z-20 '>
 					Product: {param}
 				</Paragraph>
 				{products?.map((item, indexNumber) => {
 					return (
 						<MyCardLazy
-							className='flex justify-center w-[50%] mx-auto relative top-14 right-4'
+							className='flex justify-center w-[45%] mx-auto relative top-14 right-6 '
 							isModal={true}
 							indexNumber={indexNumber ?? ''}
 							key={'modal' + item?.id || ''}

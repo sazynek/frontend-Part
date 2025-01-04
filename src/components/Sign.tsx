@@ -16,7 +16,8 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { FaCheck } from 'react-icons/fa'
-
+import { DateFunc } from '../globalFunc/globalFunc'
+// import { second } from ''
 // const jsonPlaceFolder = 'https://jsonplaceholder.typicode.com/users'
 export const Sign: FC<ISign> = ({
 	className,
@@ -24,6 +25,10 @@ export const Sign: FC<ISign> = ({
 	LogOrSignup,
 	...rest
 }) => {
+
+
+	
+
 	// const [routeControl, setRouteControl] = useState()
 	const route = useRouter()
 	const { mutate, data } = useMutation({
@@ -57,7 +62,10 @@ export const Sign: FC<ISign> = ({
 	})
 	const [, setCookies] = useCookies(['acc_token', 'rf_token'])
 	useEffect(() => {
-		setCookies('acc_token', data?.data?.acc_token, { path: '/' })
+		setCookies('acc_token', data?.data?.acc_token, {
+			path: '/',
+			expires: DateFunc(),
+		})
 	}, [data?.data?.acc_token, setCookies])
 	const handleForm = ({
 		data: { email, password, username: name },
@@ -75,9 +83,10 @@ export const Sign: FC<ISign> = ({
 		rest.reset()
 	}
 
+
 	if (data !== undefined) {
 		setTimeout(() => {
-			route.replace('home')
+			route.replace('/home')
 		}, 0)
 	}
 

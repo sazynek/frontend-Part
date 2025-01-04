@@ -2,6 +2,7 @@ import { Col, Row } from 'antd'
 import { Container } from '../../components/Container'
 import { StatTItle } from '../../components/StatTItle'
 import { IStatTItle } from '../../types/types'
+import cl from './stat.module.scss'
 const statData: IStatTItle[] = [
 	{ title: '10K+', paragraph: 'Satisfied CostumersAll Great Over The World' },
 	{
@@ -13,17 +14,10 @@ const statData: IStatTItle[] = [
 		paragraph: 'Reliable Customer Support We Provide Great Experiences',
 	},
 ]
-export const Stat = () => {
+export const Stat:FC = () => {
+	
 	return (
-		<div
-			className='h-full w-full p-10 mb-24'
-			style={{
-				backgroundImage: 'url("/BG-ping.png")',
-				backgroundSize: 'cover',
-				backgroundRepeat: 'no-repeat',
-				backgroundPosition: 'center',
-			}}
-		>
+		<div className={`h-full w-full p-10 mb-24 ${cl.bg}`}>
 			<Container>
 				<Row
 					className='mt-10'

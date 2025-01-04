@@ -10,6 +10,7 @@ import axios from 'axios'
 import { FC, PropsWithChildren, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { ToastContainer } from 'react-toastify'
+import { DateFunc } from '../globalFunc/globalFunc'
 type WaveConfig = GetProp<ConfigProviderProps, 'wave'>
 
 // Prepare effect holder
@@ -134,7 +135,7 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 			return config
 		},
 		async error => {
-			console.log('error config work', error.response.data.message)
+			// console.log('error config work', error.response.data.message)
 			error.config._IsTrue = false
 			if (
 				error.status === 401 &&
@@ -142,7 +143,7 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 				error.response.data.message === 'Unauthorized' &&
 				!error.config._IsTrue
 			) {
-				console.log('error config  inner work')
+				// console.log('error config  inner work')
 				error.config._IsTrue = true
 				// a = true
 				try {
@@ -151,15 +152,25 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 						{},
 						{ withCredentials: true },
 					)
-					console.log('error message')
+					// console.log('error message')
 
-					setCookies('acc_token', data?.acc_token, { path: '/' })
+					setCookies('acc_token', data?.acc_token, { path: '/',expires:DateFunc()})
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				} catch (e) {
-					console.log(`this is fail`)
+					const a = JSON.parse(error.config.data)
+					setTimeout(async () => {
+						await axios.post(
+							'http://localhost:3100/comments',
+							{
+								content: a?.content ?? '',
+							},
+							{ withCredentials: true },
+						)
+					}, 100)
+				} catch {
+					// console.log(`this is fail`)
 				}
 			}
-			// throw error
+			// throw errorz
 		},
 	)
 	useEffect(() => {
@@ -170,7 +181,7 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 					{},
 					{ withCredentials: true },
 				)
-				setCookies('acc_token', data.acc_token, { path: '/' })
+				setCookies('acc_token', data.acc_token, { path: '/' ,expires:DateFunc()})
 
 				// console.log(data, 'this is data from boss-layout')
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars

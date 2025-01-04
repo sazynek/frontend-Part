@@ -91,23 +91,6 @@ export const Statistics = () => {
 		)
 		return a
 	}
-	const stat3 = () => {
-		const statist = statistics?.[0]
-
-		const a = statist?.articles?.map(
-			(item: { title: string; publicDate: string }) => {
-				// console.log(item)
-				return {
-					title: item?.title,
-					pv: +item.publicDate,
-					uv: +item.publicDate,
-					amt: +item.publicDate,
-				}
-			},
-		)
-		return a
-	}
-	// console.log(stat3())
 
 	return (
 		<Container className='mx-auto w-full flex-col flex justify-center h-1/2 gap-32 mb-20'>

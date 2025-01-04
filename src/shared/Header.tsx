@@ -7,10 +7,10 @@ import Link from 'next/link'
 import { LogOutBtnLazy } from '../components/LogOutBtnLazy'
 
 export const FooterHeaderLinks = [
-	{ title: 'Menu', link: 'menu' },
-	{ title: 'Blog', link: 'blog' },
-	{ title: 'Contact', link: 'contact' },
-	{ title: 'Statistics', link: 'statistics' },
+	{ title: 'Menu', link: '/menu' },
+	{ title: 'Blog', link: '/blog' },
+	{ title: 'Contact', link: '/contact' },
+	{ title: 'Statistics', link: '/statistics' },
 ]
 
 export const Header: FC = () => {

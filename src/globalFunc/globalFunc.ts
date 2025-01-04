@@ -1,3 +1,4 @@
+import moment from 'moment'
 export const isInt = (n: number) => {
 	return Number(n) === n && n % 1 === 0
 }
@@ -23,9 +24,7 @@ export const formatCurrency = (numb: number) => {
 	return format(numb)
 }
 
-// export const takeServerCookies = async (): Promise<RequestCookie> => {
-// 	const a = await cookies()
-// 	const acc_token = a.get('acc_token')
-// 	console.log(acc_token)
-// 	return acc_token as RequestCookie
-// }
+export const DateFunc = () => {
+	const myDate=new Date(2050,2,3,5,1,3,4)
+	return myDate
+}

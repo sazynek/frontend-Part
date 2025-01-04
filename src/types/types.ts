@@ -19,14 +19,16 @@ export interface IStatTItle {
 export interface IMyCard
 	extends Pick<IResponse, 'id' | 'title' | 'imgUrl' | 'time'>,
 		StatusProduct,
-		Praise {
+		Praise,
+		IClassname {
 	alt?: string
 	onClick?: (index?: string | undefined) => void
 	mark?: boolean
-	index?: string
+	indexNumber?: number
 	isCart?: boolean
 	cartItemId?: string
 	setItemSum?: (numb: number[] | number) => void
+	isModal?: boolean
 }
 
 export interface IResponse {
@@ -140,7 +142,7 @@ export interface IComments {
 export interface ICommentsComponent {
 	item: {
 		id: string
-		content:string
+		content: string
 	}
 	idx: number
 	move: number

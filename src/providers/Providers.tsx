@@ -153,7 +153,7 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 					)
 					console.log('error message')
 
-					setCookies('acc_token', data?.acc_token)
+					setCookies('acc_token', data?.acc_token, { path: '/' })
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				} catch (e) {
 					console.log(`this is fail`)
@@ -170,7 +170,7 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 					{},
 					{ withCredentials: true },
 				)
-				setCookies('acc_token', data.acc_token)
+				setCookies('acc_token', data.acc_token, { path: '/' })
 
 				// console.log(data, 'this is data from boss-layout')
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars

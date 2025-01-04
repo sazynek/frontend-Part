@@ -19,6 +19,7 @@ import { toast } from 'react-toastify'
 import { FaCheck } from 'react-icons/fa'
 import { TiDeleteOutline } from 'react-icons/ti'
 import { ClipLoader } from 'react-spinners'
+import Link from 'next/link'
 export const MyCard: FC<IMyCard> = ({
 	cost,
 	famous,
@@ -31,6 +32,9 @@ export const MyCard: FC<IMyCard> = ({
 	userLike,
 	isCart,
 	cartItemId,
+	indexNumber,
+	isModal,
+	className,
 }) => {
 	const mutation = useMutation({
 		mutationKey: ['product-collections'],
@@ -136,22 +140,22 @@ export const MyCard: FC<IMyCard> = ({
 	const userLikeThis = (index?: string | undefined) => {
 		mutate(index)
 	}
-
 	return (
 		<Card
-			className='w-full h-full p-5 relative'
+			className={clsx(`w-full h-full p-5 relative`, className)}
 			hoverable
-			cover={
-				<>
-					{!isCart && (
-						<FaBookmark
-							onClick={() => userLikeThis(id)}
-							className={clsx(
-								'w-auto absolute right-3 top-3 cursor-pointer',
-								{ 'text-red-500': userLike === true },
-							)}
-						/>
+		>
+			{!isCart && (
+				<FaBookmark
+					onClick={() => userLikeThis(id)}
+					className={clsx(
+						'w-auto absolute right-3 top-3 cursor-pointer z-20 ',
+						{ 'text-red-500': userLike === true },
 					)}
+				/>
+			)}
+			{isModal ? (
+				<>
 					<Image
 						alt={alt ?? 'food'}
 						src={'/' + imgUrl}
@@ -159,46 +163,92 @@ export const MyCard: FC<IMyCard> = ({
 						width={400}
 						height={400}
 					/>
+					<Paragraph
+						className={clsx(
+							'p-2 text-xs rounded-md flex justify-self-start  align-middle bg-opacity-50',
+							{
+								'bg-green-300 text-green-500 font-bold':
+									famous.toLowerCase() === 'supreme',
+							},
+							{
+								'bg-red-300 text-red-500 font-bold':
+									famous.toLowerCase() === 'trending',
+							},
+							{
+								'bg-yellow-300 text-yellow-500 font-bold':
+									famous.toLowerCase() === 'healthy',
+							},
+						)}
+					>
+						{famous}
+					</Paragraph>
+					<Meta
+						title={title}
+						className='mb-2 font-extrabold text-4xl leading-8'
+					/>
+					<Flex
+						justify='left'
+						gap={5}
+					>
+						<Paragraph>{time + 'min'}</Paragraph>
+						<Image
+							className='self-start mt-0.5 mx-2'
+							src={'/star.svg'}
+							alt='star'
+							width={20}
+							height={20}
+						/>
+						<Paragraph>{rating}</Paragraph>
+					</Flex>
 				</>
-			}
-		>
-			<Paragraph
-				className={clsx(
-					'p-2 text-xs rounded-md flex justify-self-start  align-middle bg-opacity-50',
-					{
-						'bg-green-300 text-green-500 font-bold':
-							famous.toLowerCase() === 'supreme',
-					},
-					{
-						'bg-red-300 text-red-500 font-bold':
-							famous.toLowerCase() === 'trending',
-					},
-					{
-						'bg-yellow-300 text-yellow-500 font-bold':
-							famous.toLowerCase() === 'healthy',
-					},
-				)}
-			>
-				{famous}
-			</Paragraph>
-			<Meta
-				title={title}
-				className='mb-2 font-extrabold text-4xl leading-8'
-			/>
-			<Flex
-				justify='left'
-				gap={5}
-			>
-				<Paragraph>{time + 'min'}</Paragraph>
-				<Image
-					className='self-start mt-0.5 mx-2'
-					src={'/star.svg'}
-					alt='star'
-					width={20}
-					height={20}
-				/>
-				<Paragraph>{rating}</Paragraph>
-			</Flex>
+			) : (
+				<Link href={`/menu/${indexNumber}?id=${id}`}>
+					<Image
+						alt={alt ?? 'food'}
+						src={'/' + imgUrl}
+						className=' '
+						width={400}
+						height={400}
+					/>
+					<Paragraph
+						className={clsx(
+							'p-2 text-xs rounded-md flex justify-self-start  align-middle bg-opacity-50',
+							{
+								'bg-green-300 text-green-500 font-bold':
+									famous.toLowerCase() === 'supreme',
+							},
+							{
+								'bg-red-300 text-red-500 font-bold':
+									famous.toLowerCase() === 'trending',
+							},
+							{
+								'bg-yellow-300 text-yellow-500 font-bold':
+									famous.toLowerCase() === 'healthy',
+							},
+						)}
+					>
+						{famous}
+					</Paragraph>
+					<Meta
+						title={title}
+						className='mb-2 font-extrabold text-4xl leading-8'
+					/>
+					<Flex
+						justify='left'
+						gap={5}
+					>
+						<Paragraph>{time + 'min'}</Paragraph>
+						<Image
+							className='self-start mt-0.5 mx-2'
+							src={'/star.svg'}
+							alt='star'
+							width={20}
+							height={20}
+						/>
+						<Paragraph>{rating}</Paragraph>
+					</Flex>
+				</Link>
+			)}
 			{mutation.isPending || mutation2.isPending ? (
 				<div className='flex justify-end relative '>
 					<ClipLoader className='self-center' />
@@ -213,6 +263,7 @@ export const MyCard: FC<IMyCard> = ({
 					</Text>
 					{!isCart && (
 						<button
+							name='no-modal'
 							onClick={handleAddCartItem}
 							type='button'
 							className='rounded-lg p-2 
@@ -221,13 +272,17 @@ export const MyCard: FC<IMyCard> = ({
 					hover:bg-opacity-30 
 					hover:text-gray-800 
 					transition-colors 
-					duration-150'
+					duration-150
+					relative
+					z-20
+					'
 						>
 							<FaPlus className='text-xl' />
 						</button>
 					)}
 					{isCart && (
 						<button
+							name='no-modal '
 							onClick={handleDeleteCartItem}
 							type='button'
 							className='rounded-lg p-2 
@@ -236,7 +291,10 @@ export const MyCard: FC<IMyCard> = ({
 					hover:bg-opacity-30 
 					hover:text-gray-800 
 					transition-colors 
-					duration-150'
+					duration-150
+					relative
+					z-20
+					'
 						>
 							<FaMinus className='text-xl' />
 						</button>

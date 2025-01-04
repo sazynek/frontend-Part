@@ -7,6 +7,7 @@ import { Flex } from 'antd'
 import './componentStyle/componentStyle.scss'
 import { useState } from 'react'
 import { CommentsComponentLazy } from './CommentsComponentLazy'
+import Link from 'next/link'
 
 export const Comments = () => {
 	const [move, setMove] = useState<number>(0)
@@ -24,7 +25,7 @@ export const Comments = () => {
 	// console.log(move)
 
 	return (
-		<div className='mb-32 overflow-hidden '>
+		<div className='mb-32 overflow-hidden w-full '>
 			<BigTitle
 				size={44}
 				title='Customer say'
@@ -32,7 +33,7 @@ export const Comments = () => {
 				wordSelect='Customer'
 				className='mt-10'
 			/>
-
+			<Link href={'menu/2'}> go to menua</Link>
 			<div
 				className='scrollStyles '
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment

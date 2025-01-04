@@ -88,19 +88,20 @@ export const Cart = () => {
 									key={item.id}
 								>
 									<MyCardLazy
-										cartItemId={item.cartItemId ?? ''}
+										isModal={true}
+										cartItemId={item?.cartItemId ?? ''}
 										cost={item?.cost}
-										famous={item.famous}
+										famous={item?.famous}
 										id={item.id}
-										imgUrl={item.imgUrl}
-										title={item.title}
-										alt={item.alt}
-										index={item.index}
+										imgUrl={item?.imgUrl}
+										title={item?.title}
+										alt={item?.alt}
+										indexNumber={idx}
 										key={idx}
 										isCart={true}
-										praiseStatus={item.praiseStatus ?? ''}
-										rating={item.rating}
-										time={item.time}
+										praiseStatus={item?.praiseStatus ?? ''}
+										rating={item?.rating}
+										time={item?.time}
 									/>
 								</div>
 							)

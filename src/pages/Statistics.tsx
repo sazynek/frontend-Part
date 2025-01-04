@@ -53,7 +53,7 @@ export const Statistics = () => {
 	const { data: statistics } = useQuery({
 		queryKey: ['statistics'],
 		queryFn: async () => {
-			return (await axios.get('statistic')).data
+			return (await axios.get('http://localhost:3100/statistic')).data
 		},
 	})
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment

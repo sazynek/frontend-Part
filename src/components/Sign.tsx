@@ -57,7 +57,7 @@ export const Sign: FC<ISign> = ({
 	})
 	const [, setCookies] = useCookies(['acc_token', 'rf_token'])
 	useEffect(() => {
-		setCookies('acc_token', data?.data?.acc_token)
+		setCookies('acc_token', data?.data?.acc_token, { path: '/' })
 	}, [data?.data?.acc_token, setCookies])
 	const handleForm = ({
 		data: { email, password, username: name },

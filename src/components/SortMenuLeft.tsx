@@ -5,10 +5,12 @@ import { FaSearch } from 'react-icons/fa'
 import { Controller, Form, useFormContext } from 'react-hook-form'
 import { FC, MouseEvent, useState } from 'react'
 import { IParams, ISortDataProps } from '../types/types'
+import { useRouter } from 'next/navigation'
 
 const imgSrc = ['food0.png', 'food1.png', 'food2.png', 'food3.png', 'food4.png']
 
 export const SortMenuLeft: FC<ISortDataProps> = ({ setSData, data, SData }) => {
+	const router = useRouter()
 	const { control } = useFormContext()
 	const [mdl, setMdl] = useState<boolean>(false)
 	const handleSearch = ({
@@ -22,11 +24,14 @@ export const SortMenuLeft: FC<ISortDataProps> = ({ setSData, data, SData }) => {
 
 	const handleModal = (
 		e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>,
+		index: string,
+		indexNumber: number,
 	) => {
-		console.log(e.currentTarget.textContent)
-
+		console.log(`menu/${indexNumber}?id=${index}`)
+		// router.push('menu/')
 		setMdl(true)
 	}
+
 	return (
 		<>
 			<Carousel
@@ -98,16 +103,20 @@ export const SortMenuLeft: FC<ISortDataProps> = ({ setSData, data, SData }) => {
 							}
 							className={`absolute   w-[96.4%] h-auto top-16 left-0.5 z-20 bg-gray-300 bg-opacity-70 rounded-xl font-bold text-primary border-4 shadow-sm shadow-primary border-t-0`}
 						>
-							{data?.map((item, idx) => (
-								<div
-									className='p-5 rounded-xl hover:bg-gray-100 cursor-pointer'
-									onClick={e => handleModal(e)}
-									key={item?.id ?? idx}
-								>
-									{item?.title ?? 'no item'}
-									{item?.categories[0].productCategories}
-								</div>
-							))}
+							{data?.map((item, indexNumber) => {
+								return (
+									<div
+										className='p-5 rounded-xl hover:bg-gray-100 cursor-pointer'
+										onClick={e =>
+											handleModal(e, item.id, indexNumber)
+										}
+										key={item?.id ?? indexNumber}
+									>
+										{item?.title ?? 'no item'}
+										{item?.categories[0].productCategories}
+									</div>
+								)
+							})}
 						</div>
 					)}
 				</Form>

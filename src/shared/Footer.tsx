@@ -8,11 +8,9 @@ import { Flex } from 'antd'
 import { FooterHeaderLinks } from './Header'
 import Link from 'next/link'
 import Image from 'next/image'
-
 import '../app/support.scss'
 import Text from 'antd/es/typography/Text'
 export const Footer: FC = () => {
-	// useState()
 	return (
 		<footer className='pt-10'>
 			<Container className='mb-24'>

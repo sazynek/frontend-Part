@@ -20,12 +20,12 @@ export const Menu = () => {
 	})
 	const { mutate } = useMutation({
 		mutationKey: ['mutate_status-prod'],
-		mutationFn: (index?: string | undefined) => {
+		mutationFn: async (index?: string | undefined) => {
 			// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-			const { statusProductId, statusProduct } = products?.find(
+			const { statusProductId, statusProduct } = await products?.find(
 				item => item.id === index,
 			)!
-			return axios.put(
+			return await axios.put(
 				`http://localhost:3100/status-product/${statusProductId}`,
 				{
 					userLike: !statusProduct?.userLike,
@@ -49,7 +49,6 @@ export const Menu = () => {
 		},
 	})
 	// const { reset } = method
-	console.log(hay)
 
 	return (
 		<>
@@ -70,24 +69,30 @@ export const Menu = () => {
 						/>
 					</div>
 					<div className='grid grid-cols-5 gap-5'>
-						{products?.map(item => {
+						{products?.map((item, indexNumber) => {
 							if (
-								item.categories[0].productCategories ===
+								item?.categories[0]?.productCategories ===
 								'chicken'
 							)
 								return (
 									<MyCardLazy
-										key={item.id}
+										isModal={false}
+										indexNumber={indexNumber ?? ''}
+										key={item?.id ?? ''}
 										onClick={userLikeThis}
-										cost={item.praise.cost}
-										famous={item.statusProduct.famous}
-										id={item.id}
-										imgUrl={item.imgUrl}
-										rating={item.statusProduct.rating}
-										time={item.time}
-										title={item.title}
+										cost={item?.praise?.cost ?? ''}
+										famous={
+											item?.statusProduct?.famous ?? ''
+										}
+										id={item?.id ?? ''}
+										imgUrl={item?.imgUrl ?? ''}
+										rating={
+											item?.statusProduct?.rating ?? ''
+										}
+										time={item?.time ?? ''}
+										title={item?.title ?? ''}
 										alt='card'
-										userLike={item.statusProduct.userLike}
+										userLike={item?.statusProduct?.userLike}
 									/>
 								)
 						})}
@@ -103,24 +108,30 @@ export const Menu = () => {
 						/>
 					</div>
 					<div className='grid grid-cols-5 gap-5'>
-						{products?.map(item => {
+						{products?.map((item, indexNumber) => {
 							if (
-								item.categories[0].productCategories ===
+								item?.categories[0]?.productCategories ===
 								'chicken_with_vegetables'
 							)
 								return (
 									<MyCardLazy
-										key={item.id}
+										isModal={false}
+										indexNumber={indexNumber ?? ''}
+										key={item?.id ?? ''}
 										onClick={userLikeThis}
-										cost={item.praise.cost}
-										famous={item.statusProduct.famous}
-										id={item.id}
-										imgUrl={item.imgUrl}
-										rating={item.statusProduct.rating}
-										time={item.time}
-										title={item.title}
+										cost={item?.praise?.cost ?? ''}
+										famous={
+											item?.statusProduct?.famous ?? ''
+										}
+										id={item?.id ?? ''}
+										imgUrl={item?.imgUrl ?? ''}
+										rating={
+											item?.statusProduct?.rating ?? ''
+										}
+										time={item?.time ?? ''}
+										title={item?.title ?? ''}
 										alt='card'
-										userLike={item.statusProduct.userLike}
+										userLike={item?.statusProduct?.userLike}
 									/>
 								)
 						})}

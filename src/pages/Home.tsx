@@ -17,7 +17,7 @@ export const Home: FC = () => {
 			{/* <Stat /> */}
 			{/* <Restaurant /> */}
 			{/* <Dishes /> */}
-			<Comments />
+			<Comments/>
 			{/* <Accord /> */}
 		</main>
 	)

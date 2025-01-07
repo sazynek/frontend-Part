@@ -24,7 +24,13 @@ export default function GlobalError({
 							Error message is {error?.message ?? 'unknown'}
 						</div>
 						<div>Error digest is {error?.digest ?? 'unknown'}</div>
-						<div>Error cause is {error?.cause ?? 'unknown'}</div>
+						<div>
+							Error cause is{' '}
+							{
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								(error?.cause as any) ?? 'unknown'
+							}
+						</div>
 
 						<button onClick={() => reset()}>Try again</button>
 						<Link href={'/'}>leave this page</Link>

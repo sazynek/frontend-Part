@@ -11,6 +11,7 @@ import { FC, PropsWithChildren, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { ToastContainer } from 'react-toastify'
 import { DateFunc } from '../globalFunc/globalFunc'
+import { useRouter } from 'next/navigation'
 type WaveConfig = GetProp<ConfigProviderProps, 'wave'>
 
 // Prepare effect holder
@@ -127,6 +128,9 @@ const showShakeEffect: WaveConfig['showEffect'] = (node, { component }) => {
 export const query = new QueryClient()
 
 export const Providers: FC<PropsWithChildren> = ({ children }) => {
+	let check = true
+
+	const router = useRouter()
 	const [cookies, setCookies] = useCookies(['acc_token'])
 	axios.interceptors.response.use(
 		config => {
@@ -135,28 +139,37 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 			return config
 		},
 		async error => {
+			// console.log('error', error)
+
 			// console.log('error config work', error.response.data.message)
-			error.config._IsTrue = false
+
 			if (
 				error.status === 401 &&
 				error.config &&
 				error.response.data.message === 'Unauthorized' &&
-				!error.config._IsTrue
+				check === true
 			) {
-				// console.log('error config  inner work')
-				error.config._IsTrue = true
-				// a = true
+				check = false
+				// console.log(`error config  inner work: `, check)
+
 				try {
+					// console.log('error message')
 					const { data } = await axios.post(
 						'http://localhost:3100/auth/refresh_token',
 						{},
 						{ withCredentials: true },
 					)
-					// console.log('error message')
+					if (data.acc_token) {
+						check = true
+					}
 
-					setCookies('acc_token', data?.acc_token, { path: '/',expires:DateFunc()})
+					setCookies('acc_token', data?.acc_token, {
+						path: '/',
+						expires: DateFunc(),
+					})
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					const a = JSON.parse(error.config.data)
+
 					setTimeout(async () => {
 						await axios.post(
 							'http://localhost:3100/comments',
@@ -167,31 +180,46 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 						)
 					}, 100)
 				} catch {
-					// console.log(`this is fail`)
+					console.log(`this is fail`)
 				}
 			}
-			// throw errorz
+			// throw error
 		},
 	)
-	useEffect(() => {
-		const checkRf_token = async () => {
-			try {
-				const { data } = await axios.post(
-					'http://localhost:3100/auth/refresh_token',
-					{},
-					{ withCredentials: true },
-				)
-				setCookies('acc_token', data.acc_token, { path: '/' ,expires:DateFunc()})
+	const checkRf_token = async () => {
+		try {
+			// console.log('i am error')
 
-				// console.log(data, 'this is data from boss-layout')
-				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			} catch (e) {
-				// console.log(`you can\'t have rf_token | ${e}`)
+			const { data } = await axios.post(
+				'http://localhost:3100/auth/refresh_token',
+				{},
+				{ withCredentials: true },
+			)
+			// debugger
+			setCookies('acc_token', data.acc_token, {
+				path: '/',
+				expires: DateFunc(),
+			})
+
+			if (
+				!data.acc_token &&
+				data.acc_token === undefined &&
+				data.acc_token === ''
+			) {
+				router.replace('/login')
 			}
+
+			// console.log(data, 'this is data from boss-layout')
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		} catch (e) {
+			console.log(`you can\'t have rf_token | ${e}`)
 		}
+	}
+
+	useEffect(() => {
 		checkRf_token()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [cookies.acc_token])
+	}, [router, setCookies, cookies.acc_token])
 	return (
 		<StyleProvider
 			layer

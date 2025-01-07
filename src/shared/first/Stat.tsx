@@ -3,6 +3,7 @@ import { Container } from '../../components/Container'
 import { StatTItle } from '../../components/StatTItle'
 import { IStatTItle } from '../../types/types'
 import cl from './stat.module.scss'
+import { FC } from 'react'
 const statData: IStatTItle[] = [
 	{ title: '10K+', paragraph: 'Satisfied CostumersAll Great Over The World' },
 	{
@@ -14,8 +15,7 @@ const statData: IStatTItle[] = [
 		paragraph: 'Reliable Customer Support We Provide Great Experiences',
 	},
 ]
-export const Stat:FC = () => {
-	
+export const Stat: FC = () => {
 	return (
 		<div className={`h-full w-full p-10 mb-24 ${cl.bg}`}>
 			<Container>

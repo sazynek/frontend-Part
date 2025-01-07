@@ -8,11 +8,11 @@ import { query } from '../providers/Providers'
 import { useRouter } from 'next/navigation'
 import { FaTruckLoading } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-
+import { DateFunc } from '../globalFunc/globalFunc'
 
 export const LogOutBtn = () => {
 	const route = useRouter()
-	const [cookies, , removeCookie] = useCookies(['acc_token'])
+	const [cookies, setCookies, removeCookies] = useCookies(['acc_token'])
 	const { mutate } = useMutation({
 		mutationKey: ['logOut'],
 		mutationFn: async () => {
@@ -23,15 +23,29 @@ export const LogOutBtn = () => {
 			)
 		},
 		onSuccess: () => {
+			setCookies('acc_token', undefined, {
+				path: '/',
+				expires: DateFunc(),
+			})
+			query.invalidateQueries()
+		},
+		onSettled: () => {
+			setCookies('acc_token', undefined, {
+				path: '/',
+				expires: DateFunc(),
+			})
 			query.invalidateQueries()
 		},
 	})
 
-	const handleLogOut = () => {
-		removeCookie('acc_token')
+	const handleLogOut = async () => {
 		mutate()
 
-		route.replace('login')
+		setCookies('acc_token', undefined, { path: '/', expires: DateFunc() })
+		setTimeout(() => {
+			removeCookies('acc_token', { path: '/' })
+			route.replace('login')
+		}, 500)
 		toast('you logOut from account', {
 			className: 'bg-red-200 bg-opacity-90',
 			autoClose: 2000,
@@ -51,9 +65,8 @@ export const LogOutBtn = () => {
 	return (
 		<div>
 			{LOG_OUT ? (
-				<li>
+				<li onClick={handleLogOut}>
 					<Button
-						onClick={handleLogOut}
 						type='default'
 						className='p-5 border-primary hover:border-opacity-80 text-center mr-10'
 					>

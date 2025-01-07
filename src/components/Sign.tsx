@@ -25,13 +25,22 @@ export const Sign: FC<ISign> = ({
 	LogOrSignup,
 	...rest
 }) => {
-
-
-	
-
-	// const [routeControl, setRouteControl] = useState()
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const { mutate: mutateEmail } = useMutation({
+		mutationKey: ['email'],
+		mutationFn: async (data: string) => {
+			return await axios.post(
+				`http://localhost:3100/email`,
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				//@ts-ignore
+				{ to: data },
+				{ withCredentials: true },
+			)
+		},
+	})
 	const route = useRouter()
-	const { mutate, data } = useMutation({
+
+	const { mutate, data } = useMutation<unknown>({
 		mutationKey: ['Auth'],
 		mutationFn: async data => {
 			const authFinish = btnTitle === 'sign in' ? '/login' : '/register'
@@ -43,30 +52,55 @@ export const Sign: FC<ISign> = ({
 				{ withCredentials: true },
 			)
 		},
-		onSuccess: () => {
-			toast(`you ${btnTitle} in account, wait`, {
-				className: 'bg-green-200 bg-opacity-90',
-				autoClose: 2000,
-				closeOnClick: true,
-				closeButton() {
-					return (
-						<FaCheck className='self-center ml-16 mr-0 text-green-400 size-6' />
-					)
-				},
-				progressClassName: 'bg-red-500 text-green-500 h-10',
-				position: 'bottom-left',
-				hideProgressBar: true,
-			})
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		//@ts-ignore
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		onSuccess: (data, variables: { email: string }) => {
+			if (data !== undefined) {
+				toast(`you ${btnTitle} in account, wait`, {
+					className: 'bg-green-200 bg-opacity-90',
+					autoClose: 2000,
+					closeOnClick: true,
+					closeButton() {
+						return (
+							<FaCheck className='self-center ml-16 mr-0 text-green-400 size-6' />
+						)
+					},
+					progressClassName: 'bg-red-500 text-green-500 h-10',
+					position: 'bottom-left',
+					hideProgressBar: true,
+				})
+				// if (variables?.email.length && variables?.email !== '') {
+				// 	mutateEmail(variables?.email)
+				// }
+			}
+
 			query.invalidateQueries()
 		},
 	})
-	const [, setCookies] = useCookies(['acc_token', 'rf_token'])
+
+	const [, setCookies, removeCookie] = useCookies(['acc_token'])
 	useEffect(() => {
-		setCookies('acc_token', data?.data?.acc_token, {
-			path: '/',
-			expires: DateFunc(),
-		})
-	}, [data?.data?.acc_token, setCookies])
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		//@ts-ignore
+		if (data?.data?.acc_token) {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-ignore
+			setCookies('acc_token', data?.data?.acc_token, {
+				path: '/',
+				expires: DateFunc(),
+			})
+		} else {
+			removeCookie('acc_token')
+		}
+		if (data !== undefined) {
+			setTimeout(() => {
+				route.replace('/home')
+			}, 500)
+		}
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		//@ts-ignore
+	}, [data, data?.data?.acc_token, removeCookie, route, setCookies])
 	const handleForm = ({
 		data: { email, password, username: name },
 	}: {
@@ -81,13 +115,6 @@ export const Sign: FC<ISign> = ({
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		//@ts-ignore
 		rest.reset()
-	}
-
-
-	if (data !== undefined) {
-		setTimeout(() => {
-			route.replace('/home')
-		}, 0)
 	}
 
 	return (
@@ -124,6 +151,8 @@ export const Sign: FC<ISign> = ({
 						rounded-xl
 						`,
 									{
+										// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+										//@ts-ignore
 										'mb-6': !rest?.errors?.username,
 									},
 								)}
@@ -135,17 +164,25 @@ export const Sign: FC<ISign> = ({
 						)}
 					/>
 					<AnimatePresence initial={true}>
-						{rest?.errors?.username && (
-							<motion.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								exit={{ opacity: 0 }}
-								key={'error-username'}
-								className='text-red-700 text-lg  font-thin italic my-2 '
-							>
-								{rest?.errors?.username?.message}
-							</motion.div>
-						)}
+						{
+							// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+							//@ts-ignore
+							rest?.errors?.username && (
+								<motion.div
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									key={'error-username'}
+									className='text-red-700 text-lg  font-thin italic my-2 '
+								>
+									{
+										// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+										//@ts-ignore
+										rest?.errors?.username?.message
+									}
+								</motion.div>
+							)
+						}
 					</AnimatePresence>
 				</>
 			)}
@@ -170,6 +207,8 @@ export const Sign: FC<ISign> = ({
 						rounded-xl
 						`,
 							{
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+								//@ts-ignore
 								'mb-6': !rest?.errors?.email,
 							},
 						)}
@@ -182,17 +221,25 @@ export const Sign: FC<ISign> = ({
 				)}
 			/>
 			<AnimatePresence initial={true}>
-				{rest?.errors?.email && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						key={'error-email'}
-						className='text-red-700 text-lg  font-thin italic my-2 '
-					>
-						{rest?.errors?.email?.message}
-					</motion.div>
-				)}
+				{
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					//@ts-ignore
+					rest?.errors?.email && (
+						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							key={'error-email'}
+							className='text-red-700 text-lg  font-thin italic my-2 '
+						>
+							{
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+								//@ts-ignore
+								rest?.errors?.email?.message
+							}
+						</motion.div>
+					)
+				}
 			</AnimatePresence>
 			<Controller
 				name='password'
@@ -216,6 +263,8 @@ export const Sign: FC<ISign> = ({
 				rounded-xl
 				`,
 							{
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+								//@ts-ignore
 								'mb-6': !rest?.errors?.password,
 							},
 						)}
@@ -227,17 +276,25 @@ export const Sign: FC<ISign> = ({
 				)}
 			/>
 			<AnimatePresence initial={true}>
-				{rest?.errors?.password && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						key={'error-password'}
-						className='text-red-700 text-lg  font-thin italic my-2 '
-					>
-						{rest?.errors?.password?.message}
-					</motion.div>
-				)}
+				{
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					//@ts-ignore
+					rest?.errors?.password && (
+						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							key={'error-password'}
+							className='text-red-700 text-lg  font-thin italic my-2 '
+						>
+							{
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+								//@ts-ignore
+								rest?.errors?.password?.message
+							}
+						</motion.div>
+					)
+				}
 			</AnimatePresence>
 			<Button
 				htmlType='submit'

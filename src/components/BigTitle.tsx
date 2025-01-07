@@ -2,7 +2,6 @@ import { FC } from 'react'
 import { IBigTitle } from '../types/types'
 import Title from 'antd/es/typography/Title'
 import clsx from 'clsx'
-import { useFormContext } from 'react-hook-form'
 
 export const BigTitle: FC<IBigTitle> = ({
 	title,

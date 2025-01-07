@@ -60,7 +60,6 @@ export const Restaurant = () => {
 								alt='food'
 								src={'/' + item.src}
 								className='h-full  min-w-full p-0 m-0'
-							
 								width={600}
 								height={600}
 							/>
@@ -111,8 +110,14 @@ export const Restaurant = () => {
 					</div>
 				))}
 			</Flex>
-			<Flex justify='right' className='mt-24 mb-24 '>
-				<Link href={'/menu'} className='hover:opacity-80 transition-opacity duration-75'>
+			<Flex
+				justify='right'
+				className='mt-24 mb-24 '
+			>
+				<Link
+					href={'/menu'}
+					className='hover:opacity-80 transition-opacity duration-75'
+				>
 					<Paragraph className='text-gray-500 italic font-black flex gap-4 '>
 						<span>View all</span>
 						<FaArrowRight className='self-center' />

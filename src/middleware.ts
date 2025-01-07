@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { DateFunc } from './globalFunc/globalFunc'
 
-export default function Middleware(req: NextRequest) {
+export default async function Middleware(req: NextRequest) {
 	const res = NextResponse.next()
 	const acc = req.cookies.get('acc_token')
 	if (

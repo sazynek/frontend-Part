@@ -104,8 +104,9 @@ export const Statistics = () => {
 				/>
 				<PieChart
 					className='mx-auto w-full h-full'
-					width={1230}
-					height={450}
+					width={1200}
+					height={600}
+					margin={{ bottom: 0 }}
 				>
 					<Pie
 						data={stat()}
@@ -113,19 +114,19 @@ export const Statistics = () => {
 						nameKey='name'
 						cx='50%'
 						cy='50%'
-						outerRadius={100}
+						outerRadius={120}
 						className='fill-primary'
 						strokeWidth={3}
 					/>
 					<Pie
-						strokeWidth={3}
+						strokeWidth={1}
 						data={stat()}
 						dataKey='value'
 						nameKey='name'
 						cx='50%'
 						cy='50%'
-						innerRadius={140}
-						outerRadius={180}
+						innerRadius={150}
+						outerRadius={200}
 						className='fill-primary opacity-50'
 						label
 					/>

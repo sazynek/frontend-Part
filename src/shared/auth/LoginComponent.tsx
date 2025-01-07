@@ -5,7 +5,6 @@ import { BigTitle } from '../../components/BigTitle'
 import { GoogleSign } from '../../components/GoogleSign'
 import clsx from 'clsx'
 
-
 export const LoginComponent: FC<LoginProps> = ({
 	className,
 	title,
@@ -13,17 +12,16 @@ export const LoginComponent: FC<LoginProps> = ({
 	LogOrSignup,
 	...rest
 }) => {
-
 	return (
 		<div className={clsx(className)}>
 			<BigTitle
-			className='-mb-8'
+				className='-mb-8'
 				center='center'
 				size={42}
 				title={title}
 				wordSelect='eatly'
 			/>
-			<GoogleSign/>
+			<GoogleSign />
 			<div className=''>
 				<Sign
 					control={rest?.control}

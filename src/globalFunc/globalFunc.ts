@@ -1,4 +1,3 @@
-import moment from 'moment'
 export const isInt = (n: number) => {
 	return Number(n) === n && n % 1 === 0
 }
@@ -25,6 +24,6 @@ export const formatCurrency = (numb: number) => {
 }
 
 export const DateFunc = () => {
-	const myDate=new Date(2050,2,3,5,1,3,4)
+	const myDate = new Date(2050, 2, 3, 5, 1, 3, 4)
 	return myDate
 }

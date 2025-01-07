@@ -113,7 +113,6 @@ export const SortMenuLeft: FC<ISortDataProps> = ({ setSData, data, SData }) => {
 										key={item?.id ?? indexNumber}
 									>
 										{item?.title ?? 'no item'}
-										
 									</div>
 								)
 							})}

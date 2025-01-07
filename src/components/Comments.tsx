@@ -1,14 +1,73 @@
 'use client'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { BigTitle } from './BigTitle'
-import { IComments } from '../types/types'
+import { IComments, TGoogle } from '../types/types'
 import { Flex } from 'antd'
 import './componentStyle/componentStyle.scss'
-import { useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { CommentsComponentLazy } from './CommentsComponentLazy'
+import { toast } from 'react-toastify'
+import { FaCheck } from 'react-icons/fa'
+import { query } from '../providers/Providers'
 
-export const Comments = () => {
+export const Comments: FC<TGoogle> = ({ google }) => {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const { mutate: mutateEmail } = useMutation({
+		mutationKey: ['email'],
+		mutationFn: async (data: string) => {
+			return await axios.post(
+				`http://localhost:3100/email`,
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				//@ts-ignore
+				{ to: data },
+				{ withCredentials: true },
+			)
+		},
+	})
+	const { mutate } = useMutation({
+		mutationKey: ['email-rf-token'],
+		mutationFn: async () => {
+			return (
+				await axios.post(
+					'http://localhost:3100/auth/refresh_token',
+					{},
+					{ withCredentials: true },
+				)
+			).data
+		},
+		onSuccess: data => {
+			if (data !== undefined) {
+				// if (data?.email.length && data?.email !== '') {
+				// 	mutateEmail(data?.email)
+				// }
+			}
+
+			query.invalidateQueries()
+		},
+	})
+
+	useEffect(() => {
+		if (google) {
+			console.log(`i am work,i am ${google}`)
+
+			mutate()
+			toast('you sign up with google', {
+				className: 'bg-green-200 bg-opacity-90',
+				autoClose: 2000,
+				closeOnClick: true,
+				closeButton() {
+					return (
+						<FaCheck className='self-center ml-16 mr-0 text-green-400 size-6' />
+					)
+				},
+				progressClassName: 'bg-red-500 text-green-500 h-10',
+				position: 'bottom-left',
+				hideProgressBar: true,
+			})
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [google])
 	const [move, setMove] = useState<number>(0)
 	const { data } = useQuery<IComments[]>({
 		queryKey: ['comments'],

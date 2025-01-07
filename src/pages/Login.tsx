@@ -1,5 +1,5 @@
 'use client'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Col, Flex, Row } from 'antd'
 import { LoginComponent } from '../shared/auth/LoginComponent'
 import { useForm } from 'react-hook-form'
@@ -7,9 +7,11 @@ import { RightSwipeComponent } from '../components/RightSwipeComponent'
 import { ILogin } from '../types/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { schemaFunc } from '../components/schema/zodSchema'
+import { useCookies } from 'react-cookie'
+import { redirect } from 'next/navigation'
 
 export const Login: FC<ILogin> = ({ LogOrSignup, btnTitle, title }) => {
-
+	const [cookies] = useCookies(['acc_token'])
 	const {
 		control,
 		reset,
@@ -24,7 +26,17 @@ export const Login: FC<ILogin> = ({ LogOrSignup, btnTitle, title }) => {
 			password: '',
 		},
 	})
-
+	useEffect(() => {
+		if (
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-ignore
+			cookies['acc_token'] !== ('undefined' || undefined) &&
+			cookies['acc_token']
+		) {
+			redirect('/home?google=true')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [cookies, cookies['acc_token']])
 	return (
 		<main onClick={() => clearErrors()}>
 			<Row gutter={0}>

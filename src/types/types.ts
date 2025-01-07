@@ -147,3 +147,5 @@ export interface ICommentsComponent {
 	idx: number
 	move: number
 }
+
+export type TGoogle = { google: boolean }

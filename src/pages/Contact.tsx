@@ -16,9 +16,12 @@ export const Contact = () => {
 			content: '',
 		},
 	})
-    const {clearErrors}=method
+	const { clearErrors } = method
 	return (
-		<div className='pb-24' onClick={()=>clearErrors()}>
+		<div
+			className='pb-24'
+			onClick={() => clearErrors()}
+		>
 			<FormProvider {...method}>
 				<Row
 					align={'top'}
@@ -28,8 +31,7 @@ export const Contact = () => {
 						<LeftContact />
 					</Col>
 					<Col
-					
-                        className='mr-36'
+						className='mr-36'
 						span={10}
 					>
 						<RightContact />

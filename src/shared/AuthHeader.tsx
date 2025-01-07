@@ -4,7 +4,6 @@ import { IClassname } from '../types/types'
 import clsx from 'clsx'
 import Link from 'next/link'
 
-
 export const AuthHeader: FC<IClassname> = ({ className }) => {
 	// const [cookies] = useCookies(['acc_token'])
 

@@ -9,12 +9,11 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import { useCookies } from 'react-cookie'
+
 import { TiDeleteOutline } from 'react-icons/ti'
 import { query } from '../providers/Providers'
 
 export const RightContact = () => {
-	const [, setCookies] = useCookies()
 	const { mutate, isSuccess } = useMutation({
 		mutationKey: ['comments-mutate'],
 		mutationFn: async (data: {
@@ -94,6 +93,7 @@ export const RightContact = () => {
 
 	useEffect(() => {
 		if (isSuccess) reset()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSuccess])
 	return (
 		<Form
@@ -152,7 +152,10 @@ export const RightContact = () => {
 							key={'error-username'}
 							className='text-red-700 text-lg  font-thin italic my-2 '
 						>
-							{errors?.username?.message}
+							{
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								errors?.username?.message as any
+							}
 						</motion.div>
 					)}
 				</AnimatePresence>
@@ -199,7 +202,10 @@ export const RightContact = () => {
 							key={'error-email'}
 							className='text-red-700 text-lg  font-thin italic my-2 '
 						>
-							{errors?.email?.message}
+							{
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								errors?.email?.message as any
+							}
 						</motion.div>
 					)}
 				</AnimatePresence>
@@ -247,7 +253,10 @@ export const RightContact = () => {
 							key={'error-comment'}
 							className='text-red-700 text-lg  font-thin italic my-2 '
 						>
-							{errors?.content?.message}
+							{
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								errors?.content?.message as any
+							}
 						</motion.div>
 					)}
 				</AnimatePresence>

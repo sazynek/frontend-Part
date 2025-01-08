@@ -11,7 +11,9 @@ import { toast } from 'react-toastify'
 import { DateFunc } from '../globalFunc/globalFunc'
 
 export const LogOutBtn = () => {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const route = useRouter()
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [cookies, setCookies, removeCookies] = useCookies(['acc_token'])
 	const { mutate } = useMutation({
 		mutationKey: ['logOut'],

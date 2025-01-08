@@ -24,7 +24,7 @@ export const MySwiper: FC<SortDataSwiper> = ({ className, setSData }) => {
 				onChange={handleSwiper}
 				styles={{
 					track: {
-						background: '#background: #6c5fbc;',
+						background: '#6c5fbc;',
 					},
 					handle: {
 						color: '#6c5fbc',

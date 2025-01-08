@@ -1,6 +1,8 @@
 'use client'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FC, useEffect, useState } from 'react'
 import { IArticles } from '../types/types'
 import { Container } from '../components/Container'
@@ -14,12 +16,13 @@ import { isInt } from '../globalFunc/globalFunc'
 import { Button } from 'antd'
 
 import { ArticleCardLazy } from '../components/ArticleCardLazy'
+import { query } from '../providers/Providers'
 
 export const Blog: FC = () => {
 	const [go, setGo] = useState<number>(0)
 	const [offset, setOffset] = useState<number>(6)
 
-	const { data: articles, refetch } = useQuery<IArticles[]>({
+	const { data: articles } = useQuery<IArticles[]>({
 		queryKey: [`${ARTICLES}`, offset],
 		queryFn: async () => {
 			return (
@@ -48,7 +51,7 @@ export const Blog: FC = () => {
 			if (direction === 'right') setOffset(prev => prev + 6)
 			if (direction === 'left') setOffset(prev => prev - 6)
 
-			refetch()
+			query.invalidateQueries()
 		}
 	}
 	useEffect(() => {
@@ -59,7 +62,7 @@ export const Blog: FC = () => {
 
 		return () => clearTimeout(TIME_OUT)
 	}, [offset])
-	// console.log(offset)
+	console.log(offset)
 
 	return (
 		<Container className='overflow-hidden'>

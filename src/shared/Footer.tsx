@@ -36,16 +36,14 @@ export const Footer: FC = () => {
 						justify='space-between'
 					>
 						{FooterHeaderLinks.map(item => (
-							<>
-								<Link
-									key={item.title}
-									href={item.link}
-								>
-									<li className='h-full self-center'>
-										{item.title}
-									</li>
-								</Link>
-							</>
+							<Link
+								key={item.title}
+								href={item.link}
+							>
+								<li className='h-full self-center'>
+									{item.title}
+								</li>
+							</Link>
 						))}
 					</Flex>
 				</Flex>

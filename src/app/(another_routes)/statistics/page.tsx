@@ -1,6 +1,7 @@
+'use server'
 import { cookies } from 'next/headers'
-import { Statistics } from '../../../pages/Statistics'
 import { redirect } from 'next/navigation'
+import { StatPage } from '../../../pages/StatPage'
 
 export default async function StatisticsPage() {
 	const a = await cookies()
@@ -9,10 +10,15 @@ export default async function StatisticsPage() {
 	if (b?.value !== 'undefined' && b?.value.length) {
 		return (
 			<div>
-				<Statistics />
+				<StatPage/>
 			</div>
 		)
 	} else {
+		return (
+			<div>
+				{/* <Blog /> */}
+			</div>
+		)
 		redirect('login')
 	}
 }

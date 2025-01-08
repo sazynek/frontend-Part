@@ -1,7 +1,7 @@
 'use client'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { BigTitle } from './BigTitle'
+
 import { IComments, TGoogle } from '../types/types'
 import { Flex } from 'antd'
 import './componentStyle/componentStyle.scss'
@@ -10,6 +10,7 @@ import { CommentsComponentLazy } from './CommentsComponentLazy'
 import { toast } from 'react-toastify'
 import { FaCheck } from 'react-icons/fa'
 import { query } from '../providers/Providers'
+import { BigTitle } from './BigTitle'
 
 export const Comments: FC<TGoogle> = ({ google }) => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,9 +39,9 @@ export const Comments: FC<TGoogle> = ({ google }) => {
 		},
 		onSuccess: data => {
 			if (data !== undefined) {
-				// if (data?.email.length && data?.email !== '') {
-				// 	mutateEmail(data?.email)
-				// }
+				if (data?.email.length && data?.email !== '') {
+					mutateEmail(data?.email)
+				}
 			}
 
 			query.invalidateQueries()

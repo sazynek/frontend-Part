@@ -74,7 +74,7 @@ export const ModalMenu: FC<{
 							className='flex justify-center w-[45%] mx-auto'
 							isModal={true}
 							indexNumber={indexNumber ?? ''}
-							key={'modal' + item?.id || ''}
+							key={'modalA' + item?.id || ''}
 							onClick={userLikeThis}
 							cost={item?.praise?.cost ?? ''}
 							famous={item?.statusProduct?.famous ?? ''}
@@ -102,7 +102,7 @@ export const ModalMenu: FC<{
 							className='flex justify-center w-[45%] mx-auto relative top-14 right-6 '
 							isModal={true}
 							indexNumber={indexNumber ?? ''}
-							key={'modal' + item?.id || ''}
+							key={'modalB' + item?.id || ''}
 							onClick={userLikeThis}
 							cost={item?.praise?.cost ?? ''}
 							famous={item?.statusProduct?.famous ?? ''}

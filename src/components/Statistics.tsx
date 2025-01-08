@@ -1,6 +1,4 @@
 'use client'
-import { useQuery } from '@tanstack/react-query'
-import { Container } from '../components/Container'
 import {
 	Bar,
 	BarChart,
@@ -14,6 +12,8 @@ import {
 import React from 'react'
 import axios from 'axios'
 import { BigTitle } from '../components/BigTitle'
+import { useQuery } from '@tanstack/react-query'
+import { Container } from './Container'
 
 const colors = [
 	'#0088FE',

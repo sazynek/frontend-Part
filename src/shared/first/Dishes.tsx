@@ -27,13 +27,9 @@ export const Dishes = () => {
 			<div className='grid grid-cols-5 gap-5'>
 				{products?.map((item, indexNumber) => {
 					// console.log(products ?? '');
-
 					return (
 						indexNumber > 5 && (
-							<div
-								className=''
-								key={item.id}
-							>
+							<div key={'Dished' + item?.id}>
 								<MyCardLazy
 									indexNumber={indexNumber}
 									cost={item?.praise?.cost ?? ''}

@@ -4,11 +4,11 @@ import Title from 'antd/es/typography/Title'
 import clsx from 'clsx'
 
 export const BigTitle: FC<IBigTitle> = ({
-	title,
-	wordSelect,
-	size,
-	center,
-	className,
+	title = '',
+	wordSelect = '',
+	size = '',
+	center = '',
+	className = '',
 }) => {
 	const a = title.split(' ')
 	return (

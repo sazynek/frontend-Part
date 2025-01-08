@@ -5,6 +5,7 @@ import { Container } from '../components/Container'
 import '../app/support.scss'
 import Link from 'next/link'
 import { LogOutBtnLazy } from '../components/LogOutBtnLazy'
+import { Cart } from '../components/Cart'
 
 export const FooterHeaderLinks = [
 	{ title: 'Menu', link: '/menu' },
@@ -16,6 +17,7 @@ export const FooterHeaderLinks = [
 export const Header: FC = () => {
 	return (
 		<header className='p-5 pt-10 mb-24 '>
+			<Cart />
 			<Container className=''>
 				<nav>
 					<Flex
@@ -45,16 +47,14 @@ export const Header: FC = () => {
 								justify='space-between'
 							>
 								{FooterHeaderLinks.map(item => (
-									<>
-										<Link
-											key={item.title}
-											href={item.link}
-										>
-											<li className='h-full self-center'>
-												{item.title}
-											</li>
-										</Link>
-									</>
+									<Link
+										key={item.title}
+										href={item.link}
+									>
+										<li className='h-full self-center'>
+											{item.title}
+										</li>
+									</Link>
 								))}
 							</Flex>
 						</Flex>

@@ -70,9 +70,9 @@ export const Sign: FC<ISign> = ({
 					position: 'bottom-left',
 					hideProgressBar: true,
 				})
-				// if (variables?.email.length && variables?.email !== '') {
-				// 	mutateEmail(variables?.email)
-				// }
+				if (variables?.email.length && variables?.email !== '') {
+					mutateEmail(variables?.email)
+				}
 			}
 
 			query.invalidateQueries()

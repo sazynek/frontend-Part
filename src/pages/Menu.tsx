@@ -78,7 +78,7 @@ export const Menu = () => {
 									<MyCardLazy
 										isModal={false}
 										indexNumber={indexNumber ?? ''}
-										key={item?.id ?? ''}
+										key={'CartA+' + item?.id}
 										onClick={userLikeThis}
 										cost={item?.praise?.cost ?? ''}
 										famous={
@@ -100,12 +100,12 @@ export const Menu = () => {
 				</div>
 				<div>
 					<div className='ml-6'>
-						<BigTitle
-							size={44}
-							title='Chicken with Vegetables'
-							wordSelect='Vegetables'
-							className=''
-						/>
+						{/* <BigTitle
+							// size={44}
+							// title='Chicken with Vegetables'
+							// wordSelect='Vegetables'
+							// className=''
+						/> */}
 					</div>
 					<div className='grid grid-cols-5 gap-5'>
 						{products?.map((item, indexNumber) => {
@@ -117,7 +117,7 @@ export const Menu = () => {
 									<MyCardLazy
 										isModal={false}
 										indexNumber={indexNumber ?? ''}
-										key={item?.id ?? ''}
+										key={'CartB' + item?.id}
 										onClick={userLikeThis}
 										cost={item?.praise?.cost ?? ''}
 										famous={

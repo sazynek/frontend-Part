@@ -12,7 +12,7 @@ const statData: IStatTItle[] = [
 	},
 	{
 		title: '99.99%',
-		paragraph: 'Reliable Customer Support We Provide Great Experiences',
+		paragraph: 'Reliable Customer Support We Provide Great Experiences',
 	},
 ]
 export const Stat: FC = () => {

@@ -1,7 +1,6 @@
 import { ReactNode } from 'react'
 import { Header } from '../../shared/Header'
 import { Footer } from '../../shared/Footer'
-import { Cart } from '../../components/Cart'
 
 export default function AnotherLayout({
 	children,
@@ -10,7 +9,7 @@ export default function AnotherLayout({
 	return (
 		<main>
 			<Header />
-			<Cart />
+			
 			{children}
 			{parallel}
 			<Footer />

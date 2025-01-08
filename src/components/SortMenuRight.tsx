@@ -51,11 +51,10 @@ export const SortMenuRight: FC<ISortDataProps> = ({ setSData }) => {
 						gap={5}
 					>
 						{food.map((item, idx) => (
-							<>
-								<div
-									onClick={() => handleImageBtn(item)}
-									className={clsx(
-										`absolute 
+							<div
+								onClick={() => handleImageBtn(item)}
+								className={clsx(
+									`absolute 
                                 cursor-pointer 
                                 my-5 
                                 px-2 
@@ -67,58 +66,56 @@ export const SortMenuRight: FC<ISortDataProps> = ({ setSData }) => {
                                 w-fit h-fit 
                                 hover:border-opacity-60 
                                 transition-all duration-100`,
+									{
+										'bg-yellow-500 border-yellow-500 top-0 left-1':
+											item.title
+												.toLowerCase()
+												.includes('veg'),
+										'bg-red-500 border-red-500 top-0 left-20 ':
+											!item.title
+												.toLowerCase()
+												.includes('veg'),
+									},
+									{
+										'bg-opacity-10': select[idx] === true,
+									},
+									{
+										'bg-opacity-60 ': select[idx] === false,
+									},
+								)}
+								key={item.id}
+							>
+								<Image
+									className='absolute z-20'
+									alt={`sort-item-food-${item.title}`}
+									width={30}
+									height={30}
+									src={'/' + item.src}
+								/>
+								<div
+									className={clsx(
+										`text-sm text-black mt-10 font-bold text-center`,
 										{
-											'bg-yellow-500 border-yellow-500 top-0 left-1':
-												item.title
-													.toLowerCase()
-													.includes('veg'),
-											'bg-red-500 border-red-500 top-0 left-20 ':
-												!item.title
-													.toLowerCase()
-													.includes('veg'),
+											'text-yellow-600': item.title
+												.toLowerCase()
+												.includes('veg'),
 										},
 										{
-											'bg-opacity-10':
-												select[idx] === true,
-										},
-										{
-											'bg-opacity-60 ':
-												select[idx] === false,
+											'text-red-600': !item.title
+												.toLowerCase()
+												.includes('veg'),
 										},
 									)}
-									key={item.id}
 								>
-									<Image
-										className='absolute z-20'
-										alt={`sort-item-food-${item.title}`}
-										width={30}
-										height={30}
-										src={'/' + item.src}
+									<input
+										onChange={e => e.preventDefault()}
+										checked={!select[idx]}
+										type='checkbox'
+										className='z-10 absolute hidden'
 									/>
-									<div
-										className={clsx(
-											`text-sm text-black mt-10 font-bold text-center`,
-											{
-												'text-yellow-600': item.title
-													.toLowerCase()
-													.includes('veg'),
-											},
-											{
-												'text-red-600': !item.title
-													.toLowerCase()
-													.includes('veg'),
-											},
-										)}
-									>
-										<input
-											checked={!select[idx]}
-											type='checkbox'
-											className='z-10 absolute hidden'
-										/>
-										{item.title}
-									</div>
+									{item.title}
 								</div>
-							</>
+							</div>
 						))}
 					</Flex>
 					<h4 className='text-xl font-bold'>Sort By</h4>

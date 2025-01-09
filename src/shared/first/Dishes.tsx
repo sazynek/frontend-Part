@@ -11,12 +11,12 @@ export const Dishes = () => {
 	const { data: products } = useQuery<IResponse[]>({
 		queryKey: ['products'],
 		queryFn: async () =>
-			(await axios.get('http://localhost:3100/products')).data,
+			(await axios.get(`${process.env.SERVER}products`)).data,
 	})
 
 	return (
 		<Container className='mb-24'>
-			<div className='text-center  mx-auto'>
+		<div className='text-center  mx-auto'>
 				<BigTitle
 					size={45}
 					title='Our Top Dishes'

@@ -20,7 +20,7 @@ export const ModalMenu: FC<{
 		queryFn: async () =>
 			(
 				await axios.post(
-					'http://localhost:3100/products/filter',
+					`${process.env.SERVER}products/filter`,
 					{},
 					{ params: { id: searchParams } },
 				)
@@ -34,7 +34,7 @@ export const ModalMenu: FC<{
 				item => item.id === index,
 			)!
 			return await axios.put(
-				`http://localhost:3100/status-product/${statusProductId}`,
+				`${process.env.SERVER}status-product/${statusProductId}`,
 				{
 					userLike: !statusProduct?.userLike,
 				},

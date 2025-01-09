@@ -7,7 +7,7 @@ export const GoogleSign = () => {
 	const router = useRouter()
 	const handleGoogleSign = async () => {
 		try {
-			router.replace('http://localhost:3100/auth/google')
+			router.replace('${process.env.SERVER}auth/google')
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-ignore
 		} catch (e: { e: { message?: string } | unknown }) {

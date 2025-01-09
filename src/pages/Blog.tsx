@@ -26,7 +26,7 @@ export const Blog: FC = () => {
 		queryKey: [`${ARTICLES}`, offset],
 		queryFn: async () => {
 			return (
-				await axios.get(`http://localhost:3100/${ARTICLES}`, {
+				await axios.get(`${process.env.SERVER}${ARTICLES}`, {
 					params: { offset },
 				})
 			).data

@@ -23,7 +23,7 @@ export const RightContact = () => {
 		}) => {
 			try {
 				return await axios.post(
-					'http://localhost:3100/comments',
+					`${process.env.SERVER}comments`,
 					{
 						// name: data.username,
 						// email: data.email,

@@ -19,7 +19,7 @@ export const LogOutBtn = () => {
 		mutationKey: ['logOut'],
 		mutationFn: async () => {
 			return await axios.post(
-				'http://localhost:3100/auth/logout',
+				`${process.env.SERVER}auth/logout`,
 				{},
 				{ withCredentials: true },
 			)

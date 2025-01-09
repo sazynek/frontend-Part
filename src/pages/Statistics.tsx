@@ -53,7 +53,7 @@ export const Statistics = () => {
 	const { data: statistics } = useQuery({
 		queryKey: ['statistics'],
 		queryFn: async () => {
-			return (await axios.get('http://localhost:3100/statistic')).data
+			return (await axios.get(`${process.env.SERVER}statistic`)).data
 		},
 	})
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -180,6 +180,5 @@ export const Statistics = () => {
 				</BarChart>
 			</div>
 		</Container>
-		
 	)
 }

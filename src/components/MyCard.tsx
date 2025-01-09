@@ -40,7 +40,7 @@ export const MyCard: FC<IMyCard> = ({
 		mutationKey: ['product-collections'],
 		mutationFn: async () => {
 			return await axios.post(
-				'http://localhost:3100/product-collections',
+				`${process.env.SERVER}product-collections`,
 				{
 					cost,
 					famous,
@@ -63,7 +63,7 @@ export const MyCard: FC<IMyCard> = ({
 		mutationKey: ['product-collections'],
 		mutationFn: async (id: string) => {
 			return await axios.delete(
-				`http://localhost:3100/product-collections/${id}`,
+				`${process.env.SERVER}product-collections/${id}`,
 			)
 		},
 		onSuccess: () => {
@@ -113,7 +113,7 @@ export const MyCard: FC<IMyCard> = ({
 	const { data: products } = useQuery<IResponse[]>({
 		queryKey: ['products'],
 		queryFn: async () =>
-			(await axios.get('http://localhost:3100/products')).data,
+			(await axios.get(`${process.env.SERVER}products`)).data,
 	})
 
 	const { mutate } = useMutation({
@@ -124,7 +124,7 @@ export const MyCard: FC<IMyCard> = ({
 				item => item.id === index,
 			)!
 			return axios.put(
-				`http://localhost:3100/status-product/${statusProductId}`,
+				`${process.env.SERVER}status-product/${statusProductId}`,
 				{
 					userLike: !statusProduct?.userLike,
 				},

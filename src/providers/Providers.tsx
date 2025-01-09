@@ -155,7 +155,7 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 				try {
 					// console.log('error message')
 					const { data } = await axios.post(
-						'http://localhost:3100/auth/refresh_token',
+						`${process.env.SERVER}auth/refresh_token`,
 						{},
 						{ withCredentials: true },
 					)
@@ -172,7 +172,7 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 
 					setTimeout(async () => {
 						await axios.post(
-							'http://localhost:3100/comments',
+							`${process.env.SERVER}comments`,
 							{
 								content: a?.content ?? '',
 							},
@@ -191,7 +191,7 @@ export const Providers: FC<PropsWithChildren> = ({ children }) => {
 			// console.log('i am error')
 
 			const { data } = await axios.post(
-				'http://localhost:3100/auth/refresh_token',
+				`${process.env.SERVER}auth/refresh_token`,
 				{},
 				{ withCredentials: true },
 			)

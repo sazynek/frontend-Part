@@ -16,7 +16,7 @@ export const Menu = () => {
 	const { data: products } = useQuery<IResponse[]>({
 		queryKey: ['products'],
 		queryFn: async () =>
-			(await axios.get('http://localhost:3100/products')).data,
+			(await axios.get(`${process.env.SERVER}products`)).data,
 	})
 	const { mutate } = useMutation({
 		mutationKey: ['mutate_status-prod'],
@@ -26,7 +26,7 @@ export const Menu = () => {
 				item => item.id === index,
 			)!
 			return await axios.put(
-				`http://localhost:3100/status-product/${statusProductId}`,
+				`${process.env.SERVER}status-product/${statusProductId}`,
 				{
 					userLike: !statusProduct?.userLike,
 				},

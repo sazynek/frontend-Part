@@ -18,7 +18,7 @@ export const SortMenu: FC<{ go: boolean }> = ({ go }) => {
 		queryKey: ['sortMenu', SData],
 		queryFn: async () => {
 			return (
-				await axios.get('http://localhost:3100/products/filter', {
+				await axios.get('${process.env.SERVER}products/filter', {
 					params: {
 						search: SData.search!.trim(),
 						praise: SData.praise ?? 0,

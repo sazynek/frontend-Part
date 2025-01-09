@@ -30,7 +30,7 @@ export const Sign: FC<ISign> = ({
 		mutationKey: ['email'],
 		mutationFn: async (data: string) => {
 			return await axios.post(
-				`http://localhost:3100/email`,
+				`${process.env.SERVER}email`,
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				//@ts-ignore
 				{ to: data },
@@ -45,7 +45,7 @@ export const Sign: FC<ISign> = ({
 		mutationFn: async data => {
 			const authFinish = btnTitle === 'sign in' ? '/login' : '/register'
 			return await axios.post(
-				`http://localhost:3100/auth${authFinish}`,
+				`${process.env.SERVER}auth${authFinish}`,
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				//@ts-ignore
 				{ ...data },

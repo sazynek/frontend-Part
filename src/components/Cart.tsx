@@ -15,9 +15,8 @@ export const Cart = () => {
 	const { data: cartItem } = useQuery<Omit<IMyCard, 'onClick'>[]>({
 		queryKey: ['product-collections', 'query'],
 		queryFn: async () => {
-			return (
-				await axios.get('http://localhost:3100/product-collections')
-			).data
+			return (await axios.get(`${process.env.SERVER}product-collections`))
+				.data
 		},
 	})
 

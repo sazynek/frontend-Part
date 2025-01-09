@@ -18,7 +18,7 @@ export const Comments: FC<TGoogle> = ({ google }) => {
 		mutationKey: ['email'],
 		mutationFn: async (data: string) => {
 			return await axios.post(
-				`http://localhost:3100/email`,
+				`${process.env.SERVER}email`,
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				//@ts-ignore
 				{ to: data },
@@ -31,7 +31,7 @@ export const Comments: FC<TGoogle> = ({ google }) => {
 		mutationFn: async () => {
 			return (
 				await axios.post(
-					'http://localhost:3100/auth/refresh_token',
+					`${process.env.SERVER}auth/refresh_token`,
 					{},
 					{ withCredentials: true },
 				)
@@ -73,7 +73,7 @@ export const Comments: FC<TGoogle> = ({ google }) => {
 	const { data } = useQuery<IComments[]>({
 		queryKey: ['comments'],
 		queryFn: async () => {
-			return (await axios.get('http://localhost:3100/comments')).data
+			return (await axios.get(`${process.env.SERVER}comments`)).data
 		},
 	})
 	const func = (e: { target: { scrollLeft: number } }) => {

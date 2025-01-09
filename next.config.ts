@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
 	sassOptions: {
 		silenceDeprecations: ['legacy-js-api'],
 	},
+	output: 'export',
 	staticPageGenerationTimeout: 70000,
 
 	experimental: {
